@@ -1,0 +1,15 @@
+year,status,city,country,first_name,last_name,lat,long
+2008,Student,Ramallah,Palestine,Qais,Mousa,31.9,35.2
+2008,Student,Gaza City,Palestine,Rand,Safi,31.51667,34.45
+2008,Student,Ramallah,Palestine,Lina,Soufan,31.9,35.2
+2009,Student,Bethlehem,West Bank,Irene,Ghattas,31.70306,35.19556
+2009,Student,Jerusalem,West Bank,Majd,Iwidat,31.78333,35.21667
+2010,Student,Nablus,West Bank,Khalil,Abdalhadi,32.22028,35.27889
+2010,Student,Gaza City,Gaza,Baha,Attaallah,31.51667,34.45
+2010,Student,Remal,Gaza,Ayah,Rabah,31.52828,34.4454
+2012,Student,Deir Al-Balah,Palestinian Territories (Gaza),Mohammed J.M.,ALBAZ,31.41889,34.35167
+2012,Student,Gaza City,Palestinian Territories (Gaza),Rawan N.M.,YAGHI,31.51667,34.45
+2012,Student,Kufir Aqah,Palestinian Territories (West Bank),Fawzi Saleem,ZGHYER,32.0,35.38333
+2013,Student,Gaza City,Palestinian Territories,Intimaa,Abuhelou,31.51667,34.45
+2015,Student,Gaza City,Palestinian Territories,Rana,Mourtaja,31.51667,34.45
+2016,Student,"Shufat, East Jerusalem",Palestinian Territories,Mohammad Nabil Said,Al-Kurd,31.78333,35.21667
