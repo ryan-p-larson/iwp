@@ -8,47 +8,47 @@ year,status,city,country,first_name,last_name,lat,long
 2008,Student,Amman,Jordan,Faris,Jaber,31.94972,35.93278
 2008,Chaperone,,Jordan,Hiyam,Mahmoud,31.24,36.51
 2008,Chaperone,,Jordan,Reina,Mina,31.24,36.51
-2008,Student,Ramallah,Palestine,Qais,Mousa,31.9,35.2
-2008,Student,Gaza City,Palestine,Rand,Safi,31.51667,34.45
-2008,Student,Aleppo,Syria,Samar,Saleh,36.21667,37.16667
-2008,Student,Aleppo,Syria,Jalal,Sirees,36.21667,37.16667
-2008,Student,Ramallah,Palestine,Lina,Soufan,31.9,35.2
-2008,Student,Aleppo,Syria,Edwar,Tarzi,36.21667,37.16667
+2008,Student,Ramallah,Palestine (West Bank and Gaza),Qais,Mousa,31.9,35.2
+2008,Student,Gaza City,Palestine (West Bank and Gaza),Rand,Safi,31.51667,34.45
+2008,Student,Aleppo,Syrian Arab Republic,Samar,Saleh,36.21667,37.16667
+2008,Student,Aleppo,Syrian Arab Republic,Jalal,Sirees,36.21667,37.16667
+2008,Student,Ramallah,Palestine (West Bank and Gaza),Lina,Soufan,31.9,35.2
+2008,Student,Aleppo,Syrian Arab Republic,Edwar,Tarzi,36.21667,37.16667
 2009,Student,Jerusalem,Israel,Bana,Aassy,31.78333,35.21667
-2009,Student,Darayya,Syria,Lora,Abaza,33.45,36.25
-2009,Student,Darayya,Syria,Yara,Abou Fakher,33.45,36.25
+2009,Student,Darayya,Syrian Arab Republic,Lora,Abaza,33.45,36.25
+2009,Student,Darayya,Syrian Arab Republic,Yara,Abou Fakher,33.45,36.25
 2009,Chaperone,Amman,Jordan,Asma,Abu-Dahab,31.94972,35.93278
 2009,Student,Amman,Jordan,Zaid,Al-Nassir,31.94972,35.93278
 2009,Student,Amman,Jordan,Bashar,Al-Sawaftah,31.94972,35.93278
-2009,Chaperone,Darayya,Syria,Soumer,Daghastani,33.45,36.25
+2009,Chaperone,Darayya,Syrian Arab Republic,Soumer,Daghastani,33.45,36.25
 2009,Student,Beirut,Lebanon,Nadia,El Malt,33.88694,35.51306
 2009,Student,Tel Aviv,Israel,Ahmad,Ezery,32.06667,34.78333
 2009,Student,Amman,Jordan,Iya,Ghassib,31.94972,35.93278
-2009,Student,Bethlehem,West Bank,Irene,Ghattas,31.70306,35.19556
-2009,Student,Jerusalem,West Bank,Majd,Iwidat,31.78333,35.21667
+2009,Student,Bethlehem,Palestine (West Bank and Gaza),Irene,Ghattas,31.70306,35.19556
+2009,Student,Jerusalem,Palestine (West Bank and Gaza),Majd,Iwidat,31.78333,35.21667
 2009,Student,Akko,Israel,Nael,Roby,32.92778,35.08167
 2009,Chaperone,Jerusalem,Israel,Basima,Takrouri,31.78333,35.21667
 2009,Chaperone,,Jordan,Nadio,Tellawi,31.24,36.51
 2009,Student,Saida,Lebanon,Hussein,Youneiss,33.56056,35.39806
-2010,Student,Nablus,West Bank,Khalil,Abdalhadi,32.22028,35.27889
+2010,Student,Nablus,Palestine (West Bank and Gaza),Khalil,Abdalhadi,32.22028,35.27889
 2010,Student,Manama,Bahrain,Ali,AlBanki,26.21667,50.58333
 2010,Student,Manama,Bahrain,Batool,AlHejairi,26.21667,50.58333
 2010,Student,Riyadh,Saudi Arabia,Ghada,Almuhanna,24.63333,46.71667
 2010,Student,Jidhafs,Bahrain,Ghazi,AlShehabi,26.22417,50.53944
 2010,Student,Muscat,Oman,Nadia,AlTaei,23.6,58.58333
-2010,Student,Gaza City,Gaza,Baha,Attaallah,31.51667,34.45
+2010,Student,Gaza City,Palestine (West Bank and Gaza),Baha,Attaallah,31.51667,34.45
 2010,Student,Tripoli,Libya,Amr,Bennis,32.90222,13.18861
 2010,Student,Ouargla,Algeria,Houda,Ghenim,31.95,5.31667
 2010,Student,Beirut,Lebanon,Elie,Nassar,33.88694,35.51306
-2010,Student,Remal,Gaza,Ayah,Rabah,31.52828,34.4454
+2010,Student,Remal,Palestine (West Bank and Gaza),Ayah,Rabah,31.52828,34.4454
 2010,Student,Beirut,Lebanon,Nour,Saliba,33.88694,35.51306
 2010,Chaperone,Kour,Lebanon,Gladys,Youssef,34.25,35.65
-2011,Chaperone,,Egypt,Ghany,Abdel,26.0,30.0
+2011,Chaperone,,"Egypt, Arab Rep.",Ghany,Abdel,26.0,30.0
 2011,Student,Isa Town,Bahrain,Hadeel,Al Haddad,26.17361,50.54778
 2011,Chaperone,,Saudi Arabia,Mohammad,Al Hemaid,24.0,45.0
-2011,Student,Darayya,Syria,Sariah,Al Midani,33.45,36.25
+2011,Student,Darayya,Syrian Arab Republic,Sariah,Al Midani,33.45,36.25
 2011,Student,Beirut,Lebanon,Abdelatif,El Yaacoub,33.88694,35.51306
-2011,Student,Gharbeya,Egypt,Sally,El-hak,30.881,31.06
+2011,Student,Gharbeya,"Egypt, Arab Rep.",Sally,El-hak,30.881,31.06
 2011,Student,Tangier,Morocco,Maisa,Farid,35.76667,-5.8
 2011,Student,Tangier,Morocco,Oussama,Ghajjou,35.76667,-5.8
 2011,Student,Haifa ,Israel,Lana,Najjar,32.81667,34.98333
@@ -56,15 +56,15 @@ year,status,city,country,first_name,last_name,lat,long
 2011,Student,Tunis,Tunisia,Roua,Seghaier,36.8,10.18333
 2011,Student,Tourza,Lebanon,Jhonny,Yaacoub,34.28278,35.89806
 2011,Student,Tel Aviv,Israel,Maha,Zidan,32.06667,34.78333
-2012,Student,Deir Al-Balah,Palestine,Mohammed J.M.,ALBAZ,31.41889,34.35167
+2012,Student,Deir Al-Balah,Palestine (West Bank and Gaza),Mohammed J.M.,ALBAZ,31.41889,34.35167
 2012,Student,Ouargla,Algeria,Amira,ALI BOUAOUINA,31.95,5.31667
-2012,Student,Cairo,Egypt,Salma Mohamed Mounir,AMMAR,30.05,31.23333
+2012,Student,Cairo,"Egypt, Arab Rep.",Salma Mohamed Mounir,AMMAR,30.05,31.23333
 2012,Faculty,,Bulgaria,Alan,Cherchesov,42.75,25.5
 2012,Student,"Manlius, NY",United States of America,Audrey,CLEAVER-BARTHOLOMEW,43.04806,-75.98278
 2012,Student,"Clive, IA",United States of America,Alyssa Marie,COKINIS,41.6,-93.78333
 2012,Student,"Fort Collins, CO",United States of America,Rhowen,Dalrymple,40.55917,-105.07806
 2012,Faculty,,United States of America,Camille,Dungy,40.0,-100.0
-2012,Student,Moscow,Russia,Anastasia,Dyachenko,55.75,37.61667
+2012,Student,Moscow,Russian Federation,Anastasia,Dyachenko,55.75,37.61667
 2012,Student,"Huxley, IA",United States of America,Billie Katherine,FLAMING,41.89611,-93.60278
 2012,Student,Ouargla,Algeria,Ikram Cherifa,GAGAOUA,31.95,5.31667
 2012,Student,"Cockeysville, MD",United States of America,Lucy Biddle,HELLER,39.47333,-76.62667
@@ -75,36 +75,36 @@ year,status,city,country,first_name,last_name,lat,long
 2012,Student,Tunis,Tunisia,Hiba,KAHOULI,36.8,10.18333
 2012,Student,Khouribga,Morocco,Imane,KASRAOUI,32.88333,-6.91667
 2012,Student,"Northport, NY",United States of America,Patricia,Kelly,40.90278,-73.34417
-2012,Student,Smolensk,Russia,Darya,Kotova,54.78278,32.04528
-2012,Student,Smolensk,Russia,Elena,Kudryavkina,54.78278,32.04528
-2012,Student,Novosibirsk,Russia,Leonid,Kuzmenko,55.05,82.95
-2012,Student,Voronezh,Russia,Sofiko,Labzhaniya,51.67167,39.21056
+2012,Student,Smolensk,Russian Federation,Darya,Kotova,54.78278,32.04528
+2012,Student,Smolensk,Russian Federation,Elena,Kudryavkina,54.78278,32.04528
+2012,Student,Novosibirsk,Russian Federation,Leonid,Kuzmenko,55.05,82.95
+2012,Student,Voronezh,Russian Federation,Sofiko,Labzhaniya,51.67167,39.21056
 2012,Student,"Puslinch, Ontario",Canada,Isobel Lise,MCHATTIE,43.45,-80.16667
 2012,Student,"Baltimore, MD",United States of America,Hannah,Meshulam,39.28333,-76.61667
 2012,Chaperone,Oujda,Morocco,Chourouq,NASRI,34.68917,-1.91139
 2012,Student,"Solon, OH",United States of America,Jacob,Oet,41.38333,-81.45
 2012,Student,Tangier,Morocco,Lahoucine,OUMANSOUR,35.76667,-5.8
-2012,Chaperone,Alexandria,Egypt,Abdelrehim Youssef,RAMADAN,31.2,29.91667
+2012,Chaperone,Alexandria,"Egypt, Arab Rep.",Abdelrehim Youssef,RAMADAN,31.2,29.91667
 2012,Student,"Cororado Springs, CO",United States of America,Annie,Rydland,38.83333,-104.81667
-2012,Student,Moscow,Russia,Alexandra,Samarina,55.75,37.61667
-2012,Student,Moscow,Russia,Margarita,Shchleglova,55.75,37.61667
+2012,Student,Moscow,Russian Federation,Alexandra,Samarina,55.75,37.61667
+2012,Student,Moscow,Russian Federation,Margarita,Shchleglova,55.75,37.61667
 2012,Student,"Iowa City, IA",United States of America,Margaret,Shultz,41.6601,-91.5342
 2012,Student,Aryanah,Tunisia,Youssef,SMAOUI,36.8625,10.19556
-2012,Student,Krasnodar,Russia,Tatyana,Syatchikhina,45.03333,38.96667
-2012,Chaperone,,Russia,Yulia,Trarasenkova,60.0,90.0
-2012,Student,Moscow,Russia,Danila,Trofimov,55.75,37.61667
-2012,Student,Gaza City,Palestine,Rawan N.M.,YAGHI,31.51667,34.45
-2012,Student,Kufir Aqah,Palestine,Fawzi Saleem,ZGHYER,32.0,35.38333
+2012,Student,Krasnodar,Russian Federation,Tatyana,Syatchikhina,45.03333,38.96667
+2012,Chaperone,,Russian Federation,Yulia,Trarasenkova,60.0,90.0
+2012,Student,Moscow,Russian Federation,Danila,Trofimov,55.75,37.61667
+2012,Student,Gaza City,Palestine (West Bank and Gaza),Rawan N.M.,YAGHI,31.51667,34.45
+2012,Student,Kufir Aqah,Palestine (West Bank and Gaza),Fawzi Saleem,ZGHYER,32.0,35.38333
 2012,Student,Hamad Town,Bahrain,Fares,ZUBARI,26.11278,50.51389
-2013,Faculty,,Egypt,Ghada,Abdel-Aal,26.0,30.0
-2013,Student,Gaza City,Palestine,Intimaa,Abuhelou,31.51667,34.45
+2013,Faculty,,"Egypt, Arab Rep.",Ghada,Abdel-Aal,26.0,30.0
+2013,Student,Gaza City,Palestine (West Bank and Gaza),Intimaa,Abuhelou,31.51667,34.45
 2013,Student,Tunis,Tunisia,Sirine,Afraoui,36.8,10.18333
 2013,Student,Manama,Bahrain,Ahmed,Ali,26.21667,50.58333
-2013,Student,Sanaa,Yemen,Tamim,Al-Kadasi,15.34833,44.20639
+2013,Student,Sanaa,"Yemen, Rep.",Tamim,Al-Kadasi,15.34833,44.20639
 2013,Student,Riyadh,Saudi Arabia,Shahd,Al-Kaf,24.63333,46.71667
 2013,Student,Manama,Bahrain,Yaqeen,Alkhanaizi,26.21667,50.58333
 2013,Student,"Mansfield, OH",United States of America,Miranda,Anthony,40.75,-82.51667
-2013,Student,Moscow,Russia,Zoya,Anytsheva,55.75,37.61667
+2013,Student,Moscow,Russian Federation,Zoya,Anytsheva,55.75,37.61667
 2013,Student,Amman,Jordan,Yusra,Arafeh,31.94972,35.93278
 2013,Student,Nahariya,Israel,Yasmeen,Atme,33.00583,35.09889
 2013,Student,"Louisville, KY",United States of America,Elizabeth,Beckman,38.22533,-85.74167
@@ -114,11 +114,11 @@ year,status,city,country,first_name,last_name,lat,long
 2013,Faculty,"Sofia, Bulgaria",Bulgaria,Alan,Cherchesov,42.7,23.33
 2013,Student,"Iowa City, IA",United States of America,Alexander,Choi,41.6601,-91.5342
 2013,Student,"Des Moines, IA",United States of America,Sarah ,Cobb,41.59083,-93.62083
-2013,Student,Petrozavodsk,Russia,Inna,Dmitrieva,67.78333,34.33333
-2013,Student,Berdsk,Russia,,Drobotunm Evgeniya,54.75,83.1
-2013,Student,Cairo,Egypt,Akram,Elnagdy,30.05,31.23333
+2013,Student,Petrozavodsk,Russian Federation,Inna,Dmitrieva,67.78333,34.33333
+2013,Student,Berdsk,Russian Federation,,Drobotunm Evgeniya,54.75,83.1
+2013,Student,Cairo,"Egypt, Arab Rep.",Akram,Elnagdy,30.05,31.23333
 2013,Student,Kuwait City,Kuwait,Tala,El-Roz,29.36972,47.97833
-2013,Student,Dzerzhinsk,Russia,Ekaterina,Filonova,56.23333,43.45
+2013,Student,Dzerzhinsk,Russian Federation,Ekaterina,Filonova,56.23333,43.45
 2013,Student,"Fairway, KS",United States of America,Sara,Goldman,39.02389,-94.62917
 2013,Student,"Iowa City, IA",United States of America,Max,Granfield,41.6601,-91.5342
 2013,Chaperone,Amman,Jordan,Ruba,Hattar,31.94972,35.93278
@@ -126,11 +126,11 @@ year,status,city,country,first_name,last_name,lat,long
 2013,Student,"Chicago, IL",United States of America,NiShele,Jackson,41.83694,-87.68472
 2013,Student,"Madison, CT",United States of America,Isabella,Jibilian,41.27917,-72.59583
 2013,Student,"Wilmington, DE",United States of America,Lillian,Kairis,39.74583,-75.54667
-2013,Chaperone,,Russia,Anastasia,Khodakova,60.0,90.0
-2013,Student,Moscow,Russia,Alexandra,Khrisanova,55.75,37.61667
+2013,Chaperone,,Russian Federation,Anastasia,Khodakova,60.0,90.0
+2013,Student,Moscow,Russian Federation,Alexandra,Khrisanova,55.75,37.61667
 2013,Student,"Pasadena, CA",United States of America,Noah,Kim,34.15611,-118.13194
-2013,Student,Krasnodar,Russia,Dmitry,Kravchenko,45.03333,38.96667
-2013,Student,Tivdia,Russia,Victoria,Larkina,62.56172,33.96208
+2013,Student,Krasnodar,Russian Federation,Dmitry,Kravchenko,45.03333,38.96667
+2013,Student,Tivdia,Russian Federation,Victoria,Larkina,62.56172,33.96208
 2013,Student,"Flushing, NY",United States of America,Selina,Liu,40.74806,-73.81639
 2013,Student,"San Diego, CA",United States of America,Olivia,Martin,32.715,-117.1625
 2013,Student,"Kearney, MO",United States of America,Destiny,Morrison,39.36583,-94.36028
@@ -139,54 +139,54 @@ year,status,city,country,first_name,last_name,lat,long
 2013,Student,"Alton, IA",United States of America,Caitlin,Plathe,42.98694,-96.01139
 2013,Student,Tata,Morocco,Ilyas,Samig,29.74278,-7.9725
 2013,Student,"Green Bay, WI",United States of America,Jonathan,Scolare,44.51333,-88.01583
-2013,Student,Vologda,Russia,Daria,Smirnova,59.21667,39.9
+2013,Student,Vologda,Russian Federation,Daria,Smirnova,59.21667,39.9
 2013,Student,"Chicago, IL",United States of America,Alec,Steckhan,41.83694,-87.68472
 2013,Student,"Bel Air, MD",United States of America,Elizabeth,Stillinghagan,39.53667,-76.34833
 2013,Student,"Camanche, IA",United States of America,Heidi,Stofer,41.78639,-90.26
 2013,Student,"York, PA",United States of America,Margaret,Sullivan,39.96278,-76.72806
-2013,Student,Kurchatov,Russia,Alina,Vezhenina,51.66667,35.65
+2013,Student,Kurchatov,Russian Federation,Alina,Vezhenina,51.66667,35.65
 2013,Student,"Reinbeck, IA",United States of America,Sadie,Walton,42.32222,-92.59861
-2013,Student,Smolensk,Russia,Mikhail,Zakharov,54.78278,32.04528
-2014,Student,Syktyvkar,Russia,Alexander,Gubarev,61.66667,50.81667
+2013,Student,Smolensk,Russian Federation,Mikhail,Zakharov,54.78278,32.04528
+2014,Student,Syktyvkar,Russian Federation,Alexander,Gubarev,61.66667,50.81667
 2014,Chaperone,Lebanon ,Lebanon,Nancy,Abdel Karim,33.83333,35.83333
-2014,Student,Cairo,Egypt,Nada,Abdelhamid,30.05,31.23333
+2014,Student,Cairo,"Egypt, Arab Rep.",Nada,Abdelhamid,30.05,31.23333
 2014,Student,Al Hoceima,Morocco,Kaotar,Ait Ali,35.25,-3.93333
 2014,Student,Manama,Bahrain,Noora,Al-Doseri,26.21667,50.58333
 2014,Student,Nahariya,Israel,Fatima,Atma,33.00583,35.09889
 2014,Student,Tunis,Tunisia,Imen,Bouhestin,36.8,10.18333
 2014,Faculty,,Bulgaria,Alan,Cherchesov,42.75,25.5
 2014,Student,"Cedar Rapids, IA",United States of America,McKenna,Coon,41.98306,-91.66861
-2014,Student,Darayya,Syria,Muhannad,Daraj,33.45,36.25
+2014,Student,Darayya,Syrian Arab Republic,Muhannad,Daraj,33.45,36.25
 2014,Student,"Palo Alto, CA",United States of America,Nicholas,Datta,37.42917,-122.13806
 2014,Student,Azilal,Morocco,Jalal,Dlimi,31.96694,-6.56944
-2014,Student,Vladivostok,Russia,Kirill,Dyshlovoi,43.13333,131.9
+2014,Student,Vladivostok,Russian Federation,Kirill,Dyshlovoi,43.13333,131.9
 2014,Student,Khartoum,Sudan,Mustafa,Elsheikh Mustafa,15.63333,32.53333
 2014,Faculty,Paris,France,Iman,Humayden,48.85667,2.35083
-2017,Student,Petrozavodsk,Russia,Alissiia,Khoroshavina,61.78333,34.33333
-2014,Student,Vologda,Russia,Artem,Kondratev,59.21667,39.9
-2014,Student,Ekaterinburg,Russia,Iuliia,Kozlovskaia,59.21667,39.9
-2014,Student,Vladivostok,Russia,Kirill,Kuchinskii,59.21667,39.9
-2014,Student,Saratov,Russia,Anastasiia,Kurganova,51.53333,46.01667
-2014,Student,Smolensk,Russia,Tatiana,Lepkovich,54.78278,32.04528
+2017,Student,Petrozavodsk,Russian Federation,Alissiia,Khoroshavina,61.78333,34.33333
+2014,Student,Vologda,Russian Federation,Artem,Kondratev,59.21667,39.9
+2014,Student,Ekaterinburg,Russian Federation,Iuliia,Kozlovskaia,59.21667,39.9
+2014,Student,Vladivostok,Russian Federation,Kirill,Kuchinskii,59.21667,39.9
+2014,Student,Saratov,Russian Federation,Anastasiia,Kurganova,51.53333,46.01667
+2014,Student,Smolensk,Russian Federation,Tatiana,Lepkovich,54.78278,32.04528
 2014,Student,"Des Moines, IA",United States of America,Dani,Lipman,41.59083,-93.62083
 2014,Student,"Chicago, IL",United States of America,Johnny,Lorenzana,41.83694,-87.68472
 2014,Student,"San Diego, CA",United States of America,Kerry,Luo,32.715,-117.1625
 2014,Student,"Gibsonia, PA",United States of America,Katrina,Manrique,40.63,-79.96944
-2014,Student,"Buturlino, Nizhegordoskyire region",Russia,Anton,Meshkov,55.56528,44.90056
+2014,Student,"Buturlino, Nizhegordoskyire region",Russian Federation,Anton,Meshkov,55.56528,44.90056
 2014,Student,"Chandler, AZ",United States of America,Ruohan ,Miao,33.3,-111.83333
 2014,Chaperone,Oujda,Morocco,Daoudi,Mimoune,34.68917,-1.91139
 2014,Student,"Marion, IA",United States of America,Griffin,Neal,42.03778,-91.75972
 2014,Student,Amman,Jordan,Yazan,Omari,31.94972,35.93278
 2014,Faculty,"Louisville, KY",United States of America,Kiki,Petrosino,38.22533,-85.74167
-2014,Student,Chamzinka Mordovia,Russia,Alena,Piksaeva,54.4,45.78333
+2014,Student,Chamzinka Mordovia,Russian Federation,Alena,Piksaeva,54.4,45.78333
 2014,Student,Manama,Bahrain,Dana,Radhi,26.21667,50.58333
-2014,Chaperone,Kazan,Russia,Svetlana,Seniukhina,55.78333,49.11667
+2014,Chaperone,Kazan,Russian Federation,Svetlana,Seniukhina,55.78333,49.11667
 2014,Student,"Oak Park, IL",United States of America,Oksana,Snell,41.88333,-87.8
 2014,Student,"Boca Raton, FL",United States of America,Matias,Sosa-Wheelock,26.36861,-80.1
 2014,Student,Beirut,Lebanon,Megry,Tchangoulian,33.88694,35.51306
 2014,Student,"Memphis, TN",United States of America,Jada,Thomas,35.1175,-89.97111
-2014,Student,Moscow,Russia,Alina,Vasilyeva,55.75,37.61667
-2014,Student,Giza,Egypt,Merna,Wahba,30.01667,31.21667
+2014,Student,Moscow,Russian Federation,Alina,Vasilyeva,55.75,37.61667
+2014,Student,Giza,"Egypt, Arab Rep.",Merna,Wahba,30.01667,31.21667
 2014,Student,"Santa Fe, NM",United States of America,Raina,Wellman,35.66722,-105.96444
 2015,Student,"Baqa Al-Gharbia, Haifa Dis.",Israel,Orwa,Abu Mukh,32.42033,35.04218
 2015,Faculty,Istanbul,Turkey,Nazmi,Agil,41.01361,28.955
@@ -197,11 +197,11 @@ year,status,city,country,first_name,last_name,lat,long
 2015,Student,Yerevan,Armenia,Lianna,Arakelyan,40.18333,44.51667
 2015,Chaperone,Yerevan,Armenia,Arevik,Ashkharoyan,40.18333,44.51667
 2015,Student,Istanbul,Turkey,Nur,Ba,41.01361,28.955
-2015,Student,Cairo,Egypt,Reem,Badr,30.05,31.23333
-2015,Student,Gorno-Altaisk,Russia,Shunu,Baydalakov,51.95,85.96667
+2015,Student,Cairo,"Egypt, Arab Rep.",Reem,Badr,30.05,31.23333
+2015,Student,Gorno-Altaisk,Russian Federation,Shunu,Baydalakov,51.95,85.96667
 2015,Student,"Bellwood, IL",United States of America,Karlyn,Boens,41.88292,-87.87643
 2015,Student,"Metairie, LA",United States of America,Megan,Bott,29.99778,-90.1775
-2015,Student,Smolensk,Russia,Iuliia ,Chernova,54.78278,32.04528
+2015,Student,Smolensk,Russian Federation,Iuliia ,Chernova,54.78278,32.04528
 2015,Student,"Zionsville, IN",United States of America,Weston,Clark,39.95306,-86.26944
 2015,Student,"Omaha, NE",United States of America,Margaret,Davey,41.25,-96.0
 2015,NSPP Mentor,"Oakton, VA",United States of America,Aline,Dolinh,38.88306,-77.29
@@ -209,27 +209,27 @@ year,status,city,country,first_name,last_name,lat,long
 2015,Student,"Lanai City, HI",United States of America,Jayde,Fernandez,20.8275,-156.92194
 2015,Chaperone,Jerusalem,Israel,Salah,Fokra,31.78333,35.21667
 2015,Student,"Iowa City, IA",United States of America,Gwyneth,Forsythe,41.6601,-91.5342
-2015,Faculty,Moscow,Russia,Alisa,Ganieva,55.75,37.61667
-2015,Chaperone,Cairo,Egypt,Nesma,Gewily,30.05,31.23333
-2015,Student,Pushkin,Russia,Maria,Grigoryeva,59.73333,30.38333
+2015,Faculty,Moscow,Russian Federation,Alisa,Ganieva,55.75,37.61667
+2015,Chaperone,Cairo,"Egypt, Arab Rep.",Nesma,Gewily,30.05,31.23333
+2015,Student,Pushkin,Russian Federation,Maria,Grigoryeva,59.73333,30.38333
 2015,Student,"San Diego, CA",United States of America,Erica,Guo,32.715,-117.1625
 2015,Student,"Short Hills, NJ",United States of America,Hanna,Hall,40.73916,-74.32744
 2015,Student,Yerevan,Armenia,Avetis,Harutyunyan,40.18333,44.51667
 2015,Student,Yerevan,Armenia,Narine,Harutyunyan,40.18333,44.51667
 2015,Student,Manama,Bahrain,Jenan,Hasan,26.21667,50.58333
 2015,Faculty,"Lincoln, NE",United States of America,Mary,Hickman,40.81056,-96.68028
-2015,Student,Moscow/Vidnoe,Russia,Daria,Ivanova,55.75,37.61667
+2015,Student,Moscow/Vidnoe,Russian Federation,Daria,Ivanova,55.75,37.61667
 2015,Student,"Los Angeles, CA",United States of America,Somi,Jun,34.05,-118.25
-2015,Student,Ekaterinburg,Russia,Olga,Kadochnikova,59.21667,39.9
+2015,Student,Ekaterinburg,Russian Federation,Olga,Kadochnikova,59.21667,39.9
 2015,Student,Sakarya,Turkey,Berfinsu,Kazakli,40.69722,30.45667
-2015,Student,Ankara,Turkey,B�ra,Kevran,39.93333,32.86667
-2015,Student,Nakhodka,Russia,Anna,Kondratyuk,42.81667,132.86667
-2015,Student,Ekaterinburg,Russia,Anastasia,Krizhanovskaya,59.21667,39.9
-2015,Chaperone,Volzhsky,Russia,Irina,Kuznetsova,48.80556,44.74167
+2015,Student,Ankara,Turkey,B?ra,Kevran,39.93333,32.86667
+2015,Student,Nakhodka,Russian Federation,Anna,Kondratyuk,42.81667,132.86667
+2015,Student,Ekaterinburg,Russian Federation,Anastasia,Krizhanovskaya,59.21667,39.9
+2015,Chaperone,Volzhsky,Russian Federation,Irina,Kuznetsova,48.80556,44.74167
 2015,Student,Tunis,Tunisia,Nada,Makhlouf,36.8,10.18333
 2015,Student,"Montclair, NJ",United States of America,Deryn,Mierlak,40.82442,-74.21235
-2015,Student,Samara,Russia,Alisa ,Morozova,53.20278,50.14083
-2015,Student,Gaza City,Palestine,Rana,Mourtaja,31.51667,34.45
+2015,Student,Samara,Russian Federation,Alisa ,Morozova,53.20278,50.14083
+2015,Student,Gaza City,Palestine (West Bank and Gaza),Rana,Mourtaja,31.51667,34.45
 2015,Chaperone,Istanbul,Turkey,Birgul,Oguz,41.01361,28.955
 2015,Faculty,Yerevan,Armenia,Armen,Ohanyan,40.18333,44.51667
 2015,Student,"Ankeny, IA",United States of America,Brandon,Pahl,41.72667,-93.60417
@@ -241,9 +241,9 @@ year,status,city,country,first_name,last_name,lat,long
 2015,Student,Yerevan,Armenia,Meri,Sharoyan,40.18333,44.51667
 2015,Student,"Iowa City, IA",United States of America,Naomi,Shilyansky,41.6601,-91.5342
 2015,Student,"Decatur, GA",United States of America,Annabel,Shu,33.77139,-84.29778
-2015,Student,Smolensk,Russia,Elizaveta,Shutova,54.78278,32.04528
+2015,Student,Smolensk,Russian Federation,Elizaveta,Shutova,54.78278,32.04528
 2015,Student,"New York, NY",United States of America,Isabella,Simonetti,40.71278,-74.00583
-2015,Student,Buryatia,Russia,Mikhail,Sokolov,53.8,109.33333
+2015,Student,Buryatia,Russian Federation,Mikhail,Sokolov,53.8,109.33333
 2015,Student,"Takoma Park, MD",United States of America,Jamie,Solomon,38.98,-77.00222
 2015,Student,"Mesa, AZ",United States of America,Paul,Stanton,33.415,-111.83139
 2015,Student,Jezzine,Lebanon,Jana,Tabet,33.53333,35.58333
@@ -255,24 +255,24 @@ year,status,city,country,first_name,last_name,lat,long
 2015,Student,Yerevan,Armenia,Mariam,Yeghiazaryan,40.18333,44.51667
 2016,Student,Sousse,Tunisia,Islam Ben Ahmed,Ben Abdelaziz,35.83333,10.63333
 2016,Student,Amman,Jordan,Aya Nader Mohd,Albsoul,31.94972,35.93278
-2016,Student,"Dokki, Giza ",Egypt,Nada Mohamed Nabil,Ali,30.03806,31.21111
-2016,Student,"Shufat, East Jerusalem",Palestine,Mohammad Nabil Said,Al-Kurd,31.78333,35.21667
+2016,Student,"Dokki, Giza ","Egypt, Arab Rep.",Nada Mohamed Nabil,Ali,30.03806,31.21111
+2016,Student,"Shufat, East Jerusalem",Palestine (West Bank and Gaza),Mohammad Nabil Said,Al-Kurd,31.78333,35.21667
 2016,Student,Jablat Habshi,Bahrain,Lujain Ali Hasan Ali,Alsaibai,26.21389,50.52928
 2016,Student,Basrah,Iraq,Mohammed  Ameen Abed,Al-Hajjaj,30.5,47.81667
 2016,Student,Mohammedia,Morocco,Imane,Bouhaichana,33.68333,-7.38333
 2016,Student,Beqaa,Lebanon,Aziza,El Haj Sleiman,34.00889,36.14528
 2016,Student,"Ennacer City, Batna",Algeria,Amani,Hammami,35.55,6.16667
 2016,Student,Taourirt,Morocco,Omar,Khattala,34.41694,-2.885
-2016,Student,"Novosibirsk, Siberia",Russia,Anastasiia,Bessonova,55.05,82.95
-2016,Student,"Vvedenskoe, Moscow region",Russia,Daria,Fedoseeva,55.765,37.69139
-2016,Student,Ekaterinburg,Russia,Yulia,Gaeva,59.21667,39.9
-2016,Student,Moscow,Russia,Mariia,Galkina,55.75,37.61667
-2016,Student,Kaliningrad,Russia,Ekaterina,Karnaukhova,54.70028,20.45306
-2016,Student,"Ulan-Ude, Buryatia",Russia,Anastasiia,Komarova,51.83333,107.6
-2016,Student,Moscow,Russia,Vitalii,Kuznetsov,55.75,37.61667
-2016,Student,Moscow,Russia,Georgii,Martirosian,55.75,37.61667
-2016,Student,Moscow,Russia,Artem,Shestopalov,55.75,37.61667
-2016,Student,"Saratov, Saratov Oblast",Russia,Anastasiia,Zhigalova,51.53333,46.01667
+2016,Student,"Novosibirsk, Siberia",Russian Federation,Anastasiia,Bessonova,55.05,82.95
+2016,Student,"Vvedenskoe, Moscow region",Russian Federation,Daria,Fedoseeva,55.765,37.69139
+2016,Student,Ekaterinburg,Russian Federation,Yulia,Gaeva,59.21667,39.9
+2016,Student,Moscow,Russian Federation,Mariia,Galkina,55.75,37.61667
+2016,Student,Kaliningrad,Russian Federation,Ekaterina,Karnaukhova,54.70028,20.45306
+2016,Student,"Ulan-Ude, Buryatia",Russian Federation,Anastasiia,Komarova,51.83333,107.6
+2016,Student,Moscow,Russian Federation,Vitalii,Kuznetsov,55.75,37.61667
+2016,Student,Moscow,Russian Federation,Georgii,Martirosian,55.75,37.61667
+2016,Student,Moscow,Russian Federation,Artem,Shestopalov,55.75,37.61667
+2016,Student,"Saratov, Saratov Oblast",Russian Federation,Anastasiia,Zhigalova,51.53333,46.01667
 2016,Student,"Salt Lake City, UT",United States of America,Isaac,Ball,40.75,-111.88333
 2016,Student,"Bethesda, MD",United States of America,Camille,Caldera,38.98472,-77.11306
 2016,Student,"Irvine, CA",United States of America,Vishwa,Chitnis,33.66944,-117.82306
@@ -295,8 +295,8 @@ year,status,city,country,first_name,last_name,lat,long
 2016,Student,Kathmandu,Nepal,Chiran,Pandey,24.86,67.01
 2016,Student,East Sikkim,India,Ngawang,Lachungpa Bhutia,27.31667,88.6
 2016,Student,Mumbai,India,Satyendra,Nair,18.975,72.82583
-2016,Student,Karakol,Kyrgyzstan,Sabina,Umurzakova,42.48333,78.4
-2016,Student,Bishkek,Kyrgyzstan,Azamat,Omuraliev,42.87472,74.61222
+2016,Student,Karakol,Kyrgyz Republic,Sabina,Umurzakova,42.48333,78.4
+2016,Student,Bishkek,Kyrgyz Republic,Azamat,Omuraliev,42.87472,74.61222
 2016,Student,"Salt Lake City, UT",United States of America,Claire,Adler,40.75,-111.88333
 2016,Student,"Lake Bluff, IL",United States of America,Olivia,Alger,42.28333,-87.85
 2016,Student,"Iowa City, IA",United States of America,Sam,Anthony,41.6601,-91.5342
@@ -305,13 +305,13 @@ year,status,city,country,first_name,last_name,lat,long
 2016,Student,"Eagle River, AK",United States of America,Anna,Lance,61.32139,-149.56778
 2016,Student,"Iowa City, IA",United States of America,Maya,Meadows-Claussen,41.6601,-91.5342
 2016,Student,"New Orleans, LA",United States of America,Grace,Morse,29.95,-90.06667
-2016,Chaperone,"Gizah, Cairo",Egypt,Aamena,Zayed,30.05,31.23333
+2016,Chaperone,"Gizah, Cairo","Egypt, Arab Rep.",Aamena,Zayed,30.05,31.23333
 2016,Chaperone,Beirut,Lebanon,Serine,Jaafar,33.88694,35.51306
-2016,Chaperone,Moscow,Russia,Tatiana,Gurevich,55.75,37.61667
+2016,Chaperone,Moscow,Russian Federation,Tatiana,Gurevich,55.75,37.61667
 2016,Chaperone,New Delhi,India,Kandala,Singh,28.61389,77.20889
-2016,Chaperone,Bishkek,Kyrgyzstan,Zhamby,Dzhusubalieva,42.87472,74.61222
+2016,Chaperone,Bishkek,Kyrgyz Republic,Zhamby,Dzhusubalieva,42.87472,74.61222
 2016,Faculty,Colombo,Sri Lanka,Ameena,Hussein,6.93444,79.84278
 2016,Faculty,"Lincoln, NE",United States of America,Mary,Hickman,40.81056,-90.68028
 2016,Faculty,"Vancouver, British Colombia",Canada,Karim,Alrawi,49.25,-123.1
-2016,Faculty,Moscow,Russia,Alisa,Ganieva,55.75,37.61667
+2016,Faculty,Moscow,Russian Federation,Alisa,Ganieva,55.75,37.61667
 2016,Faculty,"Baltimore, MD",United States of America,Dora,Malech,39.28333,-76.61667
