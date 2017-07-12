@@ -28,11 +28,14 @@
 	}
   </style>
 </head>
+
 <body>
 <div id="mapDiv"></div>
 
 <script src="src/map.js"></script>
-<script>
+<script type="text/javascript">
+
+
 function projectPoint(d) {
 	var point = geoProjection([d.long, d.lat]);
 	var x = point[0],
