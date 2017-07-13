@@ -1,6 +1,6 @@
 var margin = {top: 10, right: 10, bottom: 10, left: 10},
     width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 600 - margin.top - margin.bottom;
 var svg = d3.select('body').append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
@@ -11,7 +11,6 @@ var g = svg.append("g");
 var zoom = d3.zoom()
     .scaleExtent([1, 8])
     .on("zoom", zoomed);
-
 var tooltip = d3.select("body")
     .append("div")
     .attr("class", "D3tooltip")
@@ -23,6 +22,9 @@ var geoProjection = d3.geoMercator();
 var geoPath = d3.geoPath().pointRadius(2);
 var geoData;
 
+var color = d3.scaleThreshold().range(['#ffffd4','#fed98e','#fe9929','#d95f0e','#993404']);
+
+
 svg.call(zoom);
 d3.queue()
 	.defer(d3.json, 'data/canonical/web-map.topojson')
@@ -31,6 +33,7 @@ d3.queue()
 
     // Geographic data
     var mapData = data[0];
+    var mapOutline = topojson.merge(mapData, mapData.objects.collection.geometries);
     mapData = topojson.feature(mapData, mapData.objects.collection);
     geoData = mapData.features;
 
@@ -41,20 +44,44 @@ d3.queue()
     // Program data
     var programData = data[1];
     var geoLookup = createLookup(programData);
+    createScale(geoLookup);   // set CK Means scale
+
 
     // Draw data
     var base = g.append("g").attr("class", "countries");
     var countries = base.selectAll("g")
-        .data(geoData)
+        .data(geoData.sort(function(a, b) {
+          return geoLookup.hasOwnProperty(a.properties.country) - geoLookup.hasOwnProperty(b.properties.country);
+        }))
       .enter().append("g")
         .attr("class", "country")
         .attr("id", function(d) { return 'NM-' + d.properties.name; });
     countries.append("path")
-        .attr("fill", function(d) {
-          return geoLookup[d.properties.country] ? '#333' : '#ddd';
-        })
+        .attr("fill", function(d) {return '#ddd'; })
         .attr("d", geoPath)
-        .on("click", function(d) { show_tooltip(d, geoLookup, 0); });
+        .filter(function(d) { return geoLookup.hasOwnProperty(d.properties.country); })
+        //.attr("fill", function(d) { return '#333'; })
+        .attr("fill", function(d) { return color(geoLookup[d.properties.country].length); })
+        .on("click", function(d) { return show_tooltip(d, geoLookup, 0); });
+
+    // Draw outline
+    var outline = g.append("g").attr("class", "outline");
+    outline.append("path")
+      .datum(mapOutline)
+      .attr("class", "outline")
+      .attr("d", geoPath);
+
+    // Labels
+    var labelLayer = g.append("g").attr("class", "labels");
+    var labels = labelLayer.selectAll("g")
+        .data(geoData.filter(function(d) { return geoLookup.hasOwnProperty(d.properties.country); }))
+        .enter().append("g");
+    labels.append("text")
+        .attr("class", "mapLabel")
+        .attr("transform", function(d) {
+          return "translate(" + geoPath.centroid(d) + ")";
+        })
+        .text(function(d) { return d.properties.name; });
 
 });
 
@@ -70,7 +97,6 @@ function show_tooltip(d, lookup, pos) {
   tooltip
       .style("display", "inline")
       .style("border", "3px solid #333");
-  tooltip.append
 
   // Tooltip information
   tooltip.append("h3")
@@ -112,14 +138,18 @@ function show_tooltip(d, lookup, pos) {
   tooltip
       .style("top", (country_centroid[1]) + "px")
       .style("left", (country_centroid[0]) + "px");
+
+  // Close tooltip
+  tooltip.on("click", function() { tooltip.style("display", "none"); });
 }
 
 // Zoom functions
 function zoomed() {
+  console.log(d3.event.scale);
   g.style("stroke-width", 0.3 / d3.event.transform.k + "px");
-  g.attr("transform", d3.event.transform); // updated for d3 v4
+  g.attr("transform", d3.event.transform);
+  d3.selectAll(".mapLabel").style("font-size", function(){ return 12 / (d3.event.transform.k) + "px";});
 }
-
 
 
 // Data
@@ -128,6 +158,11 @@ function createLookup(data) {
         .key(function(d) { return d.country; })
         .object(data);
   return geoLookup;
+}
+function createScale(lookup) {
+  var entries = d3.entries(lookup);
+  var jenksScale = ss.ckmeans(entries.map(function(d) { return d.value.length; }), 5).map(function(cluster) {return cluster[0];});
+  color.domain(jenksScale);
 }
 function clean_outreach(d) {
   d.year = +d.year;

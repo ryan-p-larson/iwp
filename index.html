@@ -20,16 +20,37 @@
 
 	<!-- Styling -->
   <style>
+	svg {
+		background: #deebf7;
+	}
+	text {
+	  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	  font-size: 10px;
+	  pointer-events: none;
+	}
+
+	/* Map Styling */
 	.country {
 		fill: none;
 		stroke: #333;
 		stroke-width: .3px;
-		opacity: 1;
+	}
+	.outline {
+		fill: none;
+		stroke: #fff;
+		stroke-width: .5px;
+	}
+	.mapLabel {
+		fill: #444;
+		color: none;
+		stroke: none;
+		pointer-events: none;
+		text-anchor: middle;
 	}
 
 
 
-
+	/* Tooltip styling */
 	.D3tooltip {
 		background: rgba(0, 0, 0, 0.85);
 		color: #f9f9f9;
@@ -37,6 +58,7 @@
 	}
 	.D3tooltip h3 {
 		text-align: center;
+		margin: 5px;
 		padding: 5px 5px 0px;
 	}
 	.D3button {
