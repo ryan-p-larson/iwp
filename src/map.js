@@ -6,6 +6,11 @@ var svg = d3.select('body').append('svg')
     .attr('height', height + margin.top + margin.bottom)
   .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+var g = svg.append("g");
+
+var zoom = d3.zoom()
+    .scaleExtent([1, 8])
+    .on("zoom", zoomed);
 
 var tooltip = d3.select("body")
     .append("div")
@@ -18,7 +23,7 @@ var geoProjection = d3.geoMercator();
 var geoPath = d3.geoPath().pointRadius(2);
 var geoData;
 
-
+svg.call(zoom);
 d3.queue()
 	.defer(d3.json, 'data/canonical/web-map.topojson')
 	.defer(d3.csv, 'data/canonical/outreach-programs.csv')
@@ -37,9 +42,8 @@ d3.queue()
     var programData = data[1];
     var geoLookup = createLookup(programData);
 
-
-    //draw_map(geoData);
-    var base = svg.append("g").attr("class", "countries");
+    // Draw data
+    var base = g.append("g").attr("class", "countries");
     var countries = base.selectAll("g")
         .data(geoData)
       .enter().append("g")
@@ -52,13 +56,9 @@ d3.queue()
         .attr("d", geoPath)
         .on("click", function(d) { show_tooltip(d, geoLookup, 0); });
 
-
-
-
-
 });
 
-
+// Tooltip
 function show_tooltip(d, lookup, pos) {
 
   // Grab data for the tool tip
@@ -114,8 +114,15 @@ function show_tooltip(d, lookup, pos) {
       .style("left", (country_centroid[0]) + "px");
 }
 
+// Zoom functions
+function zoomed() {
+  g.style("stroke-width", 0.3 / d3.event.transform.k + "px");
+  g.attr("transform", d3.event.transform); // updated for d3 v4
+}
 
 
+
+// Data
 function createLookup(data) {
   var geoLookup = d3.nest()
         .key(function(d) { return d.country; })
