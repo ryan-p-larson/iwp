@@ -59,7 +59,6 @@ d3.queue()
 });
 
 
-
 function show_tooltip(d, lookup, pos) {
 
   // Grab data for the tool tip
@@ -71,41 +70,52 @@ function show_tooltip(d, lookup, pos) {
   tooltip
       .style("display", "inline")
       .style("border", "3px solid #333");
+  tooltip.append
 
   // Tooltip information
   tooltip.append("h3")
       .style('text-align', 'center')
-      .text(d.properties.country);
+      .text(d.properties.name);
   tooltip.append("div")
-      .text("Type: " + sel_program.category);
+      .html("<b>Type: </b>" + sel_program.category);
   tooltip.append("div")
-      .text("Year: " + sel_program.year);
+      .html("<b>Year: </b>" + sel_program.year);
   tooltip.append("div")
-      .html("More info: <a href='" + sel_program.link + "'>Link</a>");
+      .html("<b>More info: </b><a href='" + sel_program.link + "'>Link</a>");
 
-  // Pagination
-  // conditional buttons
-  //◀▶
+  // Pagination with conditional buttons
+  var num_programs = country_data.length;
+  if (num_programs > 1) {
+
+    var button_div = tooltip.append("div");
+
+    if (pos < num_programs-1) {
+      button_div
+        .append("input")
+        .attr("type", "button")
+        .attr("value", "▶")
+        .attr("class", "D3button right")
+        .on("click", function() { show_tooltip(d, lookup, pos + 1);  });
+    }
+    if (pos > 0) {
+      button_div
+        .append("input")
+        .attr("type", "button")
+        .attr("value", "◀")
+        .attr("class", "D3button left")
+        .on("click", function() { show_tooltip(d, lookup, pos - 1);  });
+    }
+  }
 
   // Move tooltip into place
+  var country_centroid = geoPath.centroid(d)
   tooltip
-      .style("top", (d3.event.pageY-52) + "px")
-      .style("left", (d3.event.pageX+18) + "px");
-
-
-  console.log(country_data, sel_program);
+      .style("top", (country_centroid[1]) + "px")
+      .style("left", (country_centroid[0]) + "px");
 }
 
 
-function draw_map(data) {
-  var base = svg.append("g").attr("class", "countries");
-  var countries = base.selectAll("g")
-      .data(data)
-    .enter().append("path")
-      .attr("class", "country")
-      .attr("id", function(d) { return 'NM-' + d.properties.name; })
-      .attr("d", geoPath);
-}
+
 function createLookup(data) {
   var geoLookup = d3.nest()
         .key(function(d) { return d.country; })
