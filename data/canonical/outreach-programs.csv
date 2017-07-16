@@ -1,46 +1,77 @@
-category,country,year,link
-International Conference,Greece,2006,https://iwp.uiowa.edu/programs/international-conferences/the-new-symposium/2006
-Reading tour,Jordan,2007,https://iwp.uiowa.edu/programs/reading-abroad/2007-middle-east
-Reading tour,Palestine (West Bank and Gaza),2007,https://iwp.uiowa.edu/programs/reading-abroad/2007-middle-east
-Reading tour,Turkey,2007,https://iwp.uiowa.edu/programs/reading-abroad/2007-middle-east
-International Conference,Greece,2007,https://iwp.uiowa.edu/programs/international-conferences/the-new-symposium/2007
-Reading tour,Cyprus,2008,http://iwp.uiowa.edu/programs/reading-abroad/2008-cyprus
-Reading tour,Oman,2008,http://iwp.uiowa.edu/programs/reading-abroad/2008-middle-east
-Reading tour,"Yemen, Rep.",2008,http://iwp.uiowa.edu/programs/reading-abroad/2008-middle-east
-International Conference,Greece,2008,https://iwp.uiowa.edu/programs/international-conferences/the-new-symposium/2008
-Reading tour,Kenya,2009,https://iwp.uiowa.edu/programs/reading-abroad/2009-kenya-tour
-International Conference,China,2009,https://iwp.uiowa.edu/programs/life-of-discovery/2009
-Reading tour,Tunisia,2009,https://iwp.uiowa.edu/programs/reading-abroad/2009-Tunis-Morocco-Tour
-International Conference,China,2010,https://iwp.uiowa.edu/programs/life-of-discovery/2010
-International Conference,China,2011,https://iwp.uiowa.edu/programs/life-of-discovery/2011
-Reading tour,Nepal,2011,https://iwp.uiowa.edu/programs/reading-abroad/2011-nepal-pakistan-uae-afghanistan
-Reading tour,Pakistan,2011,https://iwp.uiowa.edu/programs/reading-abroad/2011-nepal-pakistan-uae-afghanistan
-Reading tour,United Arab Emirates,2011,https://iwp.uiowa.edu/programs/reading-abroad/2011-nepal-pakistan-uae-afghanistan
-Reading tour,Afghanistan,2011,https://iwp.uiowa.edu/programs/reading-abroad/2011-nepal-pakistan-uae-afghanistan
-Reading tour,Uruguay,2011,http://iwp.uiowa.edu/programs/reading-abroad/2011-uruguay-bolivia
-Reading tour,Bolivia,2011,http://iwp.uiowa.edu/programs/reading-abroad/2011-uruguay-bolivia
-Reading tour,Kenya,2011,https://iwp.uiowa.edu/programs/reading-abroad/2011-kenya-tour
-International Conference,China,2012,https://iwp.uiowa.edu/programs/life-of-discovery/2012
-Reading tour,Mozambique,2012,http://iwp.uiowa.edu/programs/reading-abroad/2012-Mozambique-and-Zimbabwe-Tour
-International Conference,Turkey,2013,http://iwp.uiowa.edu/programs/international-conferences/the-same-gate
-Reading tour,Sudan,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-Sudan-and-South-Sudan
-Reading tour,South Sudan,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-Sudan-and-South-Sudan
-Reading tour,Uzbekistan,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-Uzbekistan-and-Turkmenistan
-Reading tour,Turkmenistan,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-Uzbekistan-and-Turkmenistan
-Reading tour,Myanmar,2013,https://iwp.uiowa.edu/programs/reading-abroad/2013-burma-tour
-Silk Routes,Maldives,2014,http://iwp.uiowa.edu/programs/silk-routes
-Reading tour,Haiti,2014,http://iwp.uiowa.edu/programs/reading-abroad/2014-Haiti
-Reading tour,Cuba,2014,http://iwp.uiowa.edu/programs/reading-abroad/2014-Cuba
-Reading tour,China,2014,https://iwp.uiowa.edu/programs/reading-abroad/2014-China
-Reading tour,United Arab Emirates,2014,https://iwp.uiowa.edu/programs/reading-abroad/2014-United-Arab-Emirates
-Reading tour,Turkey,2014,https://iwp.uiowa.edu/programs/reading-abroad/2014-Armenia-Turkey
-Reading tour,Armenia,2014,https://iwp.uiowa.edu/programs/reading-abroad/2014-Armenia-Turkey
-Reading tour,"Venezuela, RB",2015,https://iwp.uiowa.edu/programs/reading-abroad/2015-Venezuela
-Reading tour,Colombia,2015,https://iwp.uiowa.edu/programs/reading-abroad/2015-Colombia
-Reading tour,Ukraine,2015,https://iwp.uiowa.edu/programs/reading-abroad/2015-Ukraine
-Distance Learning,Jordan,2015,https://iwp.uiowa.edu/iwp-courses/distance-learning-courses/spring-2015/room-of-ones-own
-Distance Learning,Bahrain,2015,https://iwp.uiowa.edu/iwp-courses/distance-learning-courses/spring-2015/room-of-ones-own
-Reading tour,Jordan,2016,No info
-Reading tour,South Africa,2016,No info
-Reading tour,India,2016,No info
-Reading tour,Ecuador,2016,No info
+category,country,year,link,city,full,lat,lng
+International Conference,Greece,2006,https://iwp.uiowa.edu/programs/international-conferences/the-new-symposium/2006,Athens,"Athens, Greece",37.9838096,23.7275388
+Reading tour,Syria,2007,https://iwp.uiowa.edu/programs/reading-abroad/2007-middle-east,Aleppo,"Aleppo, Syria",36.2021047,37.1342603
+Reading tour,Syria,2007,https://iwp.uiowa.edu/programs/reading-abroad/2007-middle-east,Damascus,"Damascus, Syria",33.5138073,36.2765279
+Reading tour,Jordan,2007,https://iwp.uiowa.edu/programs/reading-abroad/2007-middle-east,Amman,"Amman, Jordan",31.9453666,35.9283716
+Reading tour,Israel,2007,https://iwp.uiowa.edu/programs/reading-abroad/2007-middle-east,Jerusalem,"Jerusalem, Israel",31.768319,35.21371
+Reading tour,Palestine,2007,https://iwp.uiowa.edu/programs/reading-abroad/2007-middle-east,Ramallah,"Ramallah, Palestine",31.9037641,35.2034184
+Reading tour,Turkey,2007,https://iwp.uiowa.edu/programs/reading-abroad/2007-middle-east,Ankara,"Ankara, Turkey",39.9333635,32.8597419
+International Conference,Greece,2007,https://iwp.uiowa.edu/programs/international-conferences/the-new-symposium/2007,Athens,"Athens, Greece",37.9838096,23.7275388
+Reading tour,Cyprus,2008,http://iwp.uiowa.edu/programs/reading-abroad/2008-cyprus,Nicosia,"Nicosia, Cyprus",35.1855659,33.38227639999999
+Reading tour,Oman,2008,http://iwp.uiowa.edu/programs/reading-abroad/2008-middle-east,Muscat,"Muscat, Oman",23.58589,58.4059227
+Reading tour,Saudi Arabia,2008,http://iwp.uiowa.edu/programs/reading-abroad/2008-middle-east,Riyadh,"Riyadh, Saudi Arabia",24.7135517,46.6752957
+Reading tour,Saudi Arabia,2008,http://iwp.uiowa.edu/programs/reading-abroad/2008-middle-east,Dhahran,"Dhahran, Saudi Arabia",26.2361248,50.0393017
+Reading tour,Saudi Arabia,2008,http://iwp.uiowa.edu/programs/reading-abroad/2008-middle-east,Jeddah,"Jeddah, Saudi Arabia",21.2854067,39.2375507
+Reading tour,Yemen,2008,http://iwp.uiowa.edu/programs/reading-abroad/2008-middle-east,Sana'a,"Sana'a, Yemen",15.3694451,44.1910066
+International Conference,Greece,2008,https://iwp.uiowa.edu/programs/international-conferences/the-new-symposium/2008,Athens,"Athens, Greece",37.9838096,23.7275388
+Reading tour,Kenya,2009,https://iwp.uiowa.edu/programs/reading-abroad/2009-kenya-tour,Nairobi,"Nairobi, Kenya",-1.2920659,36.8219462
+International Conference,Morocco,2009,https://iwp.uiowa.edu/programs/international-conferences/souk-ukaz/2009,Fes,"Fes, Morocco",34.0181246,-5.0078451
+International Conference,China,2009,https://iwp.uiowa.edu/programs/life-of-discovery/2009,Beijing,"Beijing, China",39.90419989999999,116.4073963
+Reading tour,Morocco,2009,https://iwp.uiowa.edu/programs/reading-abroad/2009-Tunis-Morocco-Tour,Casablanca,"Casablanca, Morocco",33.5731104,-7.589843399999999
+Reading tour,Tunisia,2009,https://iwp.uiowa.edu/programs/reading-abroad/2009-Tunis-Morocco-Tour,Tunis,"Tunis, Tunisia",36.8064948,10.1815316
+International Conference,Morocco,2010,http://iwp.uiowa.edu/programs/international-conferences/souk-ukaz/2010,Essaouira,"Essaouira, Morocco",31.5084926,-9.7595041
+International Conference,China,2010,https://iwp.uiowa.edu/programs/life-of-discovery/2010,Beijing,"Beijing, China",39.90419989999999,116.4073963
+International Conference,China,2011,https://iwp.uiowa.edu/programs/life-of-discovery/2011,Beijing,"Beijing, China",39.90419989999999,116.4073963
+Reading tour,Nepal,2011,https://iwp.uiowa.edu/programs/reading-abroad/2011-nepal-pakistan-uae-afghanistan,Kathmandu,"Kathmandu, Nepal",27.7172453,85.3239605
+Reading tour,Pakistan,2011,https://iwp.uiowa.edu/programs/reading-abroad/2011-nepal-pakistan-uae-afghanistan,Islamabad,"Islamabad, Pakistan",33.7293882,73.0931461
+Reading tour,United Arab Emirates,2011,https://iwp.uiowa.edu/programs/reading-abroad/2011-nepal-pakistan-uae-afghanistan,Abu Dhabi,"Abu Dhabi, United Arab Emirates",24.453884,54.3773438
+Reading tour,Afghanistan,2011,https://iwp.uiowa.edu/programs/reading-abroad/2011-nepal-pakistan-uae-afghanistan,Kabul,"Kabul, Afghanistan",34.5553494,69.207486
+Reading tour,Uruguay,2011,http://iwp.uiowa.edu/programs/reading-abroad/2011-uruguay-bolivia,Montevideo,"Montevideo, Uruguay",-34.9011127,-56.16453139999999
+Reading tour,Bolivia,2011,http://iwp.uiowa.edu/programs/reading-abroad/2011-uruguay-bolivia,Sucre,"Sucre, Bolivia",-19.0195852,-65.2619615
+Reading tour,Kenya,2011,https://iwp.uiowa.edu/programs/reading-abroad/2011-kenya-tour,Nairobi,"Nairobi, Kenya",-1.2920659,36.8219462
+Reading tour,DR Congo,2012,http://iwp.uiowa.edu/programs/reading-abroad/2012-congo,Kinshasa,"Kinshasa, DR Congo",-4.4419311,15.2662931
+Reading tour,DR Congo,2012,http://iwp.uiowa.edu/programs/reading-abroad/2012-congo,Brazzaville,"Brazzaville, DR Congo",-4.2633597,15.2428853
+International Conference,China,2012,https://iwp.uiowa.edu/programs/life-of-discovery/2012,Beijing,"Beijing, China",39.90419989999999,116.4073963
+Reading tour,Brazil,2012,http://iwp.uiowa.edu/programs/reading-abroad/2012-Brazil,Fortaleza,"Fortaleza, Brazil",-3.7319029,-38.5267393
+Reading tour,Brazil,2012,http://iwp.uiowa.edu/programs/reading-abroad/2012-Brazil,Sao Paolo,"Sao Paolo, Brazil",-23.5505199,-46.63330939999999
+Reading tour,Brazil,2012,http://iwp.uiowa.edu/programs/reading-abroad/2012-Brazil,Brasilia,"Brasilia, Brazil",-15.7941569,-47.8825289
+Reading tour,Cambodia,2012,https://iwp.uiowa.edu/programs/reading-abroad/2012-cambodia-vietnam-tour,Phnom Penh,"Phnom Penh, Cambodia",11.5448729,104.8921668
+Reading tour,Cambodia,2012,https://iwp.uiowa.edu/programs/reading-abroad/2012-cambodia-vietnam-tour,Kampong Speu,"Kampong Speu, Cambodia",11.6155109,104.3791912
+Reading tour,Cambodia,2012,https://iwp.uiowa.edu/programs/reading-abroad/2012-cambodia-vietnam-tour,Krong Kampong Chhnang,"Krong Kampong Chhnang, Cambodia",12.2613926,104.6762738
+Reading tour,Cambodia,2012,https://iwp.uiowa.edu/programs/reading-abroad/2012-cambodia-vietnam-tour,Krong Siem Reap,"Krong Siem Reap, Cambodia",13.3670968,103.8448134
+Reading tour,Vietnam,2012,https://iwp.uiowa.edu/programs/reading-abroad/2012-cambodia-vietnam-tour,Hanoi,"Hanoi, Vietnam",21.0277644,105.8341598
+Reading tour,Mozambique,2012,http://iwp.uiowa.edu/programs/reading-abroad/2012-Mozambique-and-Zimbabwe-Tour,Maputo,"Maputo, Mozambique",-25.891968,32.6051351
+Reading tour,Zimbabwe,2012,http://iwp.uiowa.edu/programs/reading-abroad/2012-Mozambique-and-Zimbabwe-Tour,Harare,"Harare, Zimbabwe",-17.8251657,31.03351
+Reading tour,Zimbabwe,2012,http://iwp.uiowa.edu/programs/reading-abroad/2012-Mozambique-and-Zimbabwe-Tour,Masvingo,"Masvingo, Zimbabwe",-20.0791909,30.8384093
+International Conference,Turkey,2013,http://iwp.uiowa.edu/programs/international-conferences/the-same-gate,Ankara,"Ankara, Turkey",39.9333635,32.8597419
+Reading tour,Iraq,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-Iraq,Basrah,"Basrah, Iraq",30.5081033,47.7834888
+Reading tour,Iraq,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-Iraq,Baghdad,"Baghdad, Iraq",33.3128057,44.3614875
+Reading tour,Iraq,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-Iraq,Erbil,"Erbil, Iraq",36.2062933,44.0088697
+Reading tour,Sudan,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-Sudan-and-South-Sudan,Khartoum,"Khartoum, Sudan",15.5006544,32.5598994
+Reading tour,South Sudan,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-Sudan-and-South-Sudan,Juba,"Juba, South Sudan",4.859363,31.57125
+Reading tour,Uzbekistan,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-Uzbekistan-and-Turkmenistan,Tashkent,"Tashkent, Uzbekistan",41.2994958,69.2400734
+Reading tour,Turkmenistan,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-Uzbekistan-and-Turkmenistan,Ashgabat,"Ashgabat, Turkmenistan",37.9600766,58.32606289999999
+Reading tour,United Arab Emirates,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-United-Arab-Emirates,Abu Dhabi,"Abu Dhabi, United Arab Emirates",24.453884,54.3773438
+Reading tour,United Arab Emirates,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-United-Arab-Emirates,Dubai,"Dubai, United Arab Emirates",25.2048493,55.2707828
+Reading tour,United Arab Emirates,2013,http://iwp.uiowa.edu/programs/reading-abroad/2013-United-Arab-Emirates,Sharjah,"Sharjah, United Arab Emirates",25.3462553,55.4209317
+Reading tour,Myanmar,2013,https://iwp.uiowa.edu/programs/reading-abroad/2013-burma-tour,Naypyidaw,"Naypyidaw, Myanmar",19.7633057,96.07851040000001
+Silk Routes,Maldives,2014,http://iwp.uiowa.edu/programs/silk-routes,Malé,"Malé, Maldives",4.1754959,73.5093474
+Reading tour,Haiti,2014,http://iwp.uiowa.edu/programs/reading-abroad/2014-Haiti,Port-au-Prince,"Port-au-Prince, Haiti",18.594395,-72.3074326
+Reading tour,Cuba,2014,http://iwp.uiowa.edu/programs/reading-abroad/2014-Cuba,Havana,"Havana, Cuba",23.1135925,-82.3665956
+Reading tour,China,2014,https://iwp.uiowa.edu/programs/reading-abroad/2014-China,Beijing,"Beijing, China",39.90419989999999,116.4073963
+Reading tour,United Arab Emirates,2014,https://iwp.uiowa.edu/programs/reading-abroad/2014-United-Arab-Emirates,Abu Dhabi,"Abu Dhabi, United Arab Emirates",24.453884,54.3773438
+Reading tour,Turkey,2014,https://iwp.uiowa.edu/programs/reading-abroad/2014-Armenia-Turkey,Ankara,"Ankara, Turkey",39.9333635,32.8597419
+Reading tour,Armenia,2014,https://iwp.uiowa.edu/programs/reading-abroad/2014-Armenia-Turkey,Yerevan,"Yerevan, Armenia",40.1791857,44.4991029
+Reading tour,Venezuela,2015,https://iwp.uiowa.edu/programs/reading-abroad/2015-Venezuela,Caracas,"Caracas, Venezuela",10.4805937,-66.90360629999999
+Reading tour,Colombia,2015,https://iwp.uiowa.edu/programs/reading-abroad/2015-Colombia,Bogotá,"Bogotá, Colombia",4.710988599999999,-74.072092
+Reading tour,Ukraine,2015,https://iwp.uiowa.edu/programs/reading-abroad/2015-Ukraine,Kiev,"Kiev, Ukraine",50.4501,30.5234
+Distance Learning,Jordan,2015,https://iwp.uiowa.edu/iwp-courses/distance-learning-courses/spring-2015/room-of-ones-own,Amman,"Amman, Jordan",31.9453666,35.9283716
+Distance Learning,Bahrain,2015,https://iwp.uiowa.edu/iwp-courses/distance-learning-courses/spring-2015/room-of-ones-own,Manama,"Manama, Bahrain",26.2285161,50.5860497
+Reading tour,Jordan,2016,No info,Amman,"Amman, Jordan",31.9453666,35.9283716
+Reading tour,South Africa,2016,No info,Pretoria,"Pretoria, South Africa",-25.7478676,28.2292712
+Reading tour,India,2016,No info,New Delhi,"New Delhi, India",28.6139391,77.2090212
+Reading tour,Ecuador,2016,No info,Quito,"Quito, Ecuador",-0.1806532,-78.4678382
+Distance Learning,Afghanistan,2016,https://iwp.uiowa.edu/iwp-courses/distance-learning-courses/summer-2016/every-grain-of-light,Jalalabad,"Jalalabad, Afghanistan",34.4198488,70.47294339999999
+Distance Learning,Afghanistan,2016,https://iwp.uiowa.edu/iwp-courses/distance-learning-courses/summer-2016/every-grain-of-light,Kabul,"Kabul, Afghanistan",34.5553494,69.207486
+Distance Learning,Afghanistan,2016,https://iwp.uiowa.edu/iwp-courses/distance-learning-courses/summer-2016/every-grain-of-light,Mazar-i-Sharif,"Mazar-i-Sharif, Afghanistan",36.69261669999999,67.1179511
+Reading tour,Morocco,2017,No info,Tangiers,"Tangiers, Morocco",35.7594651,-5.833954299999999
