@@ -80,7 +80,8 @@ var esri_lite = L.esri.basemapLayer('Gray', {
 var title = L.control({position: 'topleft'});
 title.onAdd = function(map) {
 	var div = L.DomUtil.create('div', 'mapTitle');
-	div.innerHTML += '<h2>Youth Participants <span id="titleInfo" class="glyphicon glyphicon-info-sign"></span></h2>';
+	div.innerHTML += '<h2>Youth Participants</h2>';
+	// <span id="titleInfo" class="glyphicon glyphicon-info-sign"></span>
 	return div;
 }
 title.addTo(leafletMap);
