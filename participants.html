@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Youth Participants</title>
+
+	<!-- CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,500,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"/>
+
+	<!-- D3.js + TopoJson -->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+	<script src="https://d3js.org/topojson.v1.min.js"></script>
+
+	<!-- Leaflet for easier mapping -->
+	<script src="https://unpkg.com/leaflet@1.1.0"></script>
+	<!-- Esri Basemaps -->
+	<script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+
+	<!-- Styling -->
+  <style>
+	#mapDiv {
+		width: 960px;
+		height: 500px;
+	}
+	.mapTitle h2 {
+		color: #555;
+		margin: 5px;
+		font-weight: 700;
+
+	}
+	#titleInfo {
+		font-size: 16px;
+	}
+	.legend {
+	    line-height: 20px;
+	    color: #555;
+			background: rgba(255, 255, 255, 0.5);
+			border: 1px solid black;
+			padding: 5px 10px 5px;
+	}
+	.legend i {
+	    width: 15px;
+	    height: 15px;
+			border: 1px solid black;
+			border-radius: 50%;
+	    float: left;
+	    margin-right: 8px;
+	    opacity: 0.65;
+	}
+	.info.about {
+		background: rgba(255, 255, 255, 0.5);
+		border: 1px solid black;
+	}
+	.leaflet-popup-content-wrapper {
+		border-radius: 0px;
+	}
+  </style>
+</head>
+
+<body>
+<div id="mapDiv"></div>
+
+<script type="text/javascript">
+
+// Create Leaflet map instance
+var leafletMap = L.map('mapDiv', {
+	attributionControl: false,
+	zoomControl: false
+}).setView([29, -3.5], 2);
+
+// Add Map
+var esri_lite = L.esri.basemapLayer('Gray', {
+	minZoom: 2,
+	maxZoom: 7
+}).addTo(leafletMap);
+
+// Leaflet title
+var title = L.control({position: 'topleft'});
+title.onAdd = function(map) {
+	var div = L.DomUtil.create('div', 'mapTitle');
+	div.innerHTML += '<h2>Youth Participants <span id="titleInfo" class="glyphicon glyphicon-info-sign"></span></h2>';
+	return div;
+}
+title.addTo(leafletMap);
+
+
+// Leaflet Legend
+var legend = L.control({position: 'topleft'});
+legend.onAdd = function(leafletMap) {
+
+	// Create legend div and gather categories first
+  var div = L.DomUtil.create('div', 'info legend'),
+    	years = color_year.domain();
+
+	// Add legend title
+	div.innerHTML += "<h4><strong>" + "Year" + "</strong></h4>";
+
+	// Add items
+  for (var i = 0; i < years.length; i++) {
+    div.innerHTML +=
+      '<i style="background:' + color_year(years[i]) + '"></i> ' +
+       (years[i] ? years[i] + '<br>' : '+');
+  }
+  return div;
+}
+
+// D3.js setup
+L.svg().addTo(leafletMap);
+var svg = d3.select("#mapDiv").select("svg").attr("pointer-events", null);
+var g = svg.append("g");
+var color_year = d3.scaleOrdinal()
+			.range(["#313695", "#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#fee090", "#fdae61", "#f46d43", "#d73027", "#a50026"]);
+
+
+d3.csv('data/canonical/participant-data.csv', format_data, function(data) {
+
+	// Scale set up
+	color_year.domain(d3.set(data.map(function(d) { return d.year; })).values().sort(d3.ascending));
+
+	// Map each point using leaflet
+	var pts = data.map(format_leaflet_pt);
+
+	// Add zoom not in our legend's business
+	L.control.zoom({
+		 position:'topright'
+	 }).addTo(leafletMap);
+
+	// Add legend to top left
+	legend.addTo(leafletMap);
+
+	// Add info popover
+	d3.select('#titleInfo').on('click', function() {
+
+	});
+});
+
+
+
+// Functions
+function format_data(d) {
+	d.lat = +d.lat;
+	d.long = +d.long;
+	d.year = +d.year;
+
+	d.coord = new L.latLng(d.lat, d.long);
+	return d;
+}
+
+function format_leaflet_pt(d) {
+
+	var pt = {
+		"type": "Feature",
+		"properties": {
+			"location": (d.city) ? d.city + ", " + d.country: d.country,
+			"year": d.year,
+			"name": d.first_name
+		},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [d.coord.lat, d.coord.lng]
+		}
+	};
+	var mouseover = function(e) {
+			var layer = e.target;
+	    layer.setStyle({color: '#000000', weight: 2, fillOpacity: 1.0, radius: 10});
+	    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) layer.bringToFront();
+	};
+	var mouseout = function(e) {
+			var layer = e.target;
+	    layer.setStyle({color: '#858585', weight: 1, fillOpacity: 0.65, radius: 5});
+	    //if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) layer.bringToFront();
+	};
+
+	var pt_opts = {
+		// Stroke
+		'color': '#858585',
+		'opacity': 0.65,
+		'weight': 1,
+		// Fill
+		'fillColor': color_year(d.year),
+		'fillOpacity': 0.65,
+		// Other
+		'radius': 5,
+		'className': 'participant year-' + d.year
+	};
+
+	var popup_text = "<h4><strong>Participant Information</strong></h4>" +
+			"<b>Name: </b>" + pt.properties.name + "<br>" +
+			"<b>Location: </b>" + pt.properties.location + "<br>" +
+			"<b>Year: </b>" + pt.properties.year + "<br>";
+	// Conditionally add link
+	if (d.hasOwnProperty("link"))
+			popup_text += "<b>Link: </b><a target='_blank' href='" + d.link + "'>Here.</a></b>"
+
+
+	var marker = new L.circleMarker(pt.geometry.coordinates, pt_opts)
+			.bindPopup(popup_text)
+			.addTo(leafletMap)
+			.on('mouseover', mouseover)
+			.on('mouseout', mouseout);
+}
+</script>
+</body>

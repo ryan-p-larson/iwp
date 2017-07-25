@@ -1,92 +1,27 @@
+<!--
+<iframe src='http://localhost:7777/outreach.html' width="960" height="500"></iframe>
+<iframe src='http://localhost:7777/participants.html' width="960" height="500"></iframe>
+-->
+
 <!DOCTYPE html>
 <head>
 	<meta charset="utf-8">
-	<title>Current Work</title>
+	<title>Youth Participants</title>
 
 	<!-- CSS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Raleway:400,500,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"/>
 
-	<!-- D3.js + TopoJson -->
-	<script src="https://d3js.org/d3.v4.min.js"></script>
-	<script src="https://d3js.org/colorbrewer.v1.min.js"></script>
-	<script src="https://d3js.org/topojson.v1.min.js"></script>
-
-
-	<!-- D3 legend to make it easier -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.21.0/d3-legend.min.js"></script>
-	<!-- Simple statistics for Jenks natural breaks -->
-	<script src="https://unpkg.com/simple-statistics@2.3.0/dist/simple-statistics.min.js"></script>
-
-	<!-- Styling -->
   <style>
-	svg {
-		background: #deebf7;
-	}
-	text {
-	  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	  font-size: 10px;
-	  pointer-events: none;
-	}
-
-	/* Map Styling */
-	.country {
-		fill: none;
-		stroke: #fff;
-		stroke-width: .3px;
-	}
-	.outline {
-		fill: none;
-		stroke: #444;
-		stroke-width: .5px;
-	}
-	.mapLabel {
-		fill: #444;
-		color: none;
-		stroke: none;
-		pointer-events: none;
-		text-anchor: middle;
-	}
-
-
-	/* Tooltip styling */
-	.D3tooltip {
-		background: rgba(0, 0, 0, 0.85);
-		color: #f9f9f9;
-		padding: 4px;
-	}
-	.D3tooltip h3 {
-		text-align: center;
-		margin: 5px;
-		padding: 5px 5px 0px;
-	}
-	.D3button {
-    background-color: rgba(255, 255, 255, 0.0);
-    border: #fff;
-    color: white;
-    padding: 5px 10px 0px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 24px;
-		max-width: 50px;
-	}
-	.right {
-		text-align: right;
-		float: right;
-	}
-	.left {
-		text-align: left;
-		float: left;
-	}
+  body {
+    font-family: "Raleway";
+  }
   </style>
-</head>
 
-<body>
-<div id="mapDiv"></div>
+<h1>IWP Maps</h1>
 
-<script src="src/map.js"></script>
-
-<script type="text/javascript">
-
-</script>
-</body>
+<div>
+    <p><b>Youth Participants: </b><a href="participants.html">Link</a></p>
+    <p><b>Outreach Programs: </b><a href="outreach.html">Link</a></p>
+</div>

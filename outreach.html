@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Outreach Programs</title>
+
+	<!-- CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,500,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"/>
+
+	<!-- D3.js + TopoJson -->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+	<script src="https://d3js.org/topojson.v1.min.js"></script>
+
+	<!-- Leaflet for easier mapping -->
+	<script src="https://unpkg.com/leaflet@1.1.0"></script>
+	<!-- Esri Basemaps -->
+	<script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+
+	<!-- Styling -->
+  <style>
+	#mapDiv {
+		width: 960px;
+		height: 500px;
+	}
+	.mapTitle h2 {
+		color: #e9e9e9;
+		margin: 5px;
+		font-weight: 700;
+	}
+	.programFilter {
+		width: 176px;
+		background: rgba(118, 118, 118, 0.5);
+		border: 1px solid rgba(255, 255, 255, 0.25);
+	}
+	.programFilter h6 {
+		font-weight: 700;
+		color: #e9e9e9;
+		margin: 5px 10px;
+	}
+	.legend {
+	    line-height: 20px;
+	    color: #000;
+			background: rgba(118, 118, 118, 0.5);
+			border: 1px solid rgba(255, 255, 255, 0.25);
+			padding: 5px 10px 5px;
+	}
+	.legend h4 {
+		color: #e9e9e9;
+	}
+	.legend a {
+		color: #0080C0;
+	}
+	.legend i {
+	    width: 15px;
+	    height: 15px;
+			border: 1px solid white;
+			border-radius: 50%;
+	    float: left;
+	    margin-right: 8px;
+	    opacity: 0.85;
+	}
+  </style>
+</head>
+
+<body>
+<div id="mapDiv"></div>
+
+<script type="text/javascript">
+
+// Create Leaflet map instance
+var leafletMap = L.map('mapDiv', {
+	attributionControl: false,
+	zoomControl: false
+}).setView([29, -3.5], 2);
+
+// Add tiles and use Esri's maps
+var esri_lite = L.esri.basemapLayer('DarkGray', {
+	minZoom: 2,
+	maxZoom: 7
+}).addTo(leafletMap);
+
+// Leaflet title
+var title = L.control({position: 'topleft'});
+title.onAdd = function(map) {
+	var div = L.DomUtil.create('div', 'mapTitle');
+	div.innerHTML += '<h2>Outreach Programs</h2>';
+	return div;
+}
+title.addTo(leafletMap);
+
+// Leaflet Legend
+var legend = L.control({position: 'topleft'});
+legend.onAdd = function(leafletMap) {
+
+	// Create legend div and gather categories first
+  var div = L.DomUtil.create('div', 'info legend'),
+    	categories = color_program.domain();
+
+	// Add legend title
+	div.innerHTML += "<h4><strong>" + "Program Type" + "</strong></h4>";
+
+	function create_link(val) {
+	  var link_mapping = {
+	    "Reading tour": "https://iwp.uiowa.edu/programs/reading-abroad",
+	    "International Conference": "https://iwp.uiowa.edu/programs/international-conferences",
+	    "Distance Learning": "https://iwp.uiowa.edu/iwp-courses/distance-learning-courses",
+	    "Silk Routes": "https://iwp.uiowa.edu/programs/silk-routes"
+	  };
+
+	  var link_template = "<a target='_blank' href='" + link_mapping[val] + "'>" + val + "</a>";
+	  return link_template;
+	}
+
+	// Add items
+  for (var i = 0; i < categories.length; i++) {
+    div.innerHTML +=
+      '<i style="background:' + color_program(categories[i]) + '"></i> ' +
+       //(categories[i] ? categories[i] + '<br>' : '+');
+			 create_link(categories[i]) + '<br>';
+  }
+  return div;
+}
+
+// D3.js setup
+L.svg().addTo(leafletMap);
+var svg = d3.select("#mapDiv").select("svg").attr("pointer-events", null);
+var g = svg.append("g");
+var color_program = d3.scaleOrdinal()
+			.domain(['Reading tour', 'International Conference', 'Distance Learning', 'Silk Routes'])
+			.range(['#7fc97f','#beaed4','#fdc086','#ffff99']);
+
+// Add zoom not in our legend's business
+L.control.zoom({
+	 position:'topright'
+ }).addTo(leafletMap);
+
+// Add legend to top left
+legend.addTo(leafletMap);
+
+d3.csv('data/canonical/outreach-programs.csv', format_data, function(data) {
+
+	// Map each point using leaflet
+	var pts = data.map(format_leaflet_pt);
+
+	// Add filter
+	var dropdown = L.control({position: 'topleft'});
+	dropdown.onAdd = function(map) {
+		var div = L.DomUtil.create('div', 'programFilter');
+		var start_filt = "<h6>Filter</h6><select>";
+
+		var categories = ["All", "Reading tour", "International Conference", "Distance Learning", "Silk Routes"];
+		categories.forEach(function(d) {
+			start_filt += "<option value='" + d.replace(' ', '_') + "'>" + d + '</option>';
+
+		});
+
+		end_filt = start_filt + '</select>';
+		div.innerHTML = end_filt;
+
+		return div;
+	};
+	dropdown.addTo(leafletMap);
+
+	var filter = d3.select('.programFilter select')
+			.on('change', function() {
+				if (this.value === 'All') {
+					d3.selectAll('.outreach')
+						.style('visibility', 'visible');
+				} else {
+					var program = '.category-' + this.value;
+					d3.selectAll('.outreach')
+						.style('visibility', 'hidden');
+					d3.selectAll(program).style('visibility', 'visible');
+				};
+			});
+
+});
+
+
+
+// Functions
+function format_data(d) {
+	d.lat = +d.lat;
+	d.lng = +d.lng;
+	d.year = +d.year;
+
+	d.coord = new L.latLng(d.lat, d.lng);
+	return d;
+}
+
+function format_leaflet_pt(d) {
+
+	var pt = {
+		"type": "Feature",
+		"properties": {
+			"location": (d.city) ? d.city + ", " + d.country: d.country,
+			"year": d.year,
+			"category": d.category
+		},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [d.coord.lat, d.coord.lng]
+		}
+	};
+	var mouseover = function(e) {
+			var layer = e.target;
+	    layer.setStyle({weight: 3, fillOpacity: 1.0, radius: 11});
+	    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) layer.bringToFront();
+	};
+	var mouseout = function(e) {
+			var layer = e.target;
+	    layer.setStyle({color: '#e9e9e9', weight: 1, fillOpacity: 0.85, radius: 7});
+	    //if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) layer.bringToFront();
+	};
+
+	var pt_opts = {
+		// Stroke
+		'color': '#e9e9e9',
+		'opacity': 0.85,
+		'weight': 1,
+		// Fill
+		'fillColor': color_program(d.category),
+		'fillOpacity': 0.85,
+		// Other
+		'radius': 7,
+		'className': 'outreach category-' + d.category.replace(' ', '_')
+	};
+
+	var popup_text = "<h4><strong>Program Information</strong></h4>" +
+			"<b>Location: </b>" + pt.properties.location + "<br>" +
+			"<b>Year: </b>" + pt.properties.year + "<br>" +
+			"<b>Category: </b>" + pt.properties.category + "<br>";
+	// Conditionally add link
+	if (d.hasOwnProperty("link"))
+			popup_text += "<b>Link: </b><a target='_blank' href='" + d.link + "'>Here.</a></b>"
+
+
+	var marker = new L.circleMarker(pt.geometry.coordinates, pt_opts)
+			.bindPopup(popup_text)
+			.addTo(leafletMap)
+			.on('mouseover', mouseover)
+			.on('mouseout', mouseout);
+}
+</script>
+</body>
