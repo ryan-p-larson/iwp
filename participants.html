@@ -114,14 +114,40 @@ var g = svg.append("g");
 var color_year = d3.scaleOrdinal()
 			.range(["#313695", "#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#fee090", "#fdae61", "#f46d43", "#d73027", "#a50026"]);
 
+var country_pts;
+function paginate(j, i) {
+	country_pts[j][i].openPopup();
+	return country_pts[j][i].bringToFront();
+}
 
 d3.csv('data/canonical/participant-data.csv', format_data, function(data) {
 
 	// Scale set up
 	color_year.domain(d3.set(data.map(function(d) { return d.year; })).values().sort(d3.ascending));
 
+	//////////////////////////////////////////////////////////////////////////////
+	var countries = d3.nest()
+			.key(function(d) { return d.country; })
+			.entries(data);
+
+	// Map each country array into Leaflet.js points
+	country_pts = countries.map(function(c) {
+		return c['values'].map(format_leaflet_pt);
+	});
+
+	// Add pagination by country to the points
+	country_pts.map(function(c, j) {
+		c.map(function(d, i) { format_popup(d, i, c, j); });
+	});
+
+
+
+
+
+	//////////////////////////////////////////////////////////////////////////////
+
 	// Map each point using leaflet
-	var pts = data.map(format_leaflet_pt);
+	//var pts = data.map(format_leaflet_pt);
 
 	// Add zoom not in our legend's business
 	L.control.zoom({
@@ -171,7 +197,6 @@ function format_leaflet_pt(d) {
 	var mouseout = function(e) {
 			var layer = e.target;
 	    layer.setStyle({color: '#858585', weight: 1, fillOpacity: 0.65, radius: 5});
-	    //if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) layer.bringToFront();
 	};
 
 	var pt_opts = {
@@ -202,6 +227,27 @@ function format_leaflet_pt(d) {
 			.on('mouseover', mouseover)
 			.on('mouseout', mouseout);
 	return marker;
+}
+
+function format_popup(d, i, pts_list, j) {
+	var popup_text = d._popup._content;
+
+	// Conditionally add pagination links if a country has more than one point
+	if (pts_list.length !== 1) {
+		// add HR regardless of buttons
+		popup_text += '<br>';
+
+		// Add buttons
+		if (i !== 0)
+			popup_text += '<button type="button" onclick="paginate('+j+','+(i-1)+');" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-chevron-left"></span></button>';
+		if (i !== pts_list.length-1)
+			popup_text += '<button type="button" onclick="paginate('+j+','+(i+1)+');" class="btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-chevron-right"></span></button>';
+
+		// add clearfix
+		popup_text += '<div class="clearfix"></div>';
+		// Set the popup html
+		d.setPopupContent(popup_text);
+	};
 }
 </script>
 </body>
