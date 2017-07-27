@@ -33,6 +33,7 @@
 	#titleInfo {
 		font-size: 16px;
 	}
+
 	.legend {
 	    line-height: 20px;
 	    color: #555;
@@ -40,6 +41,7 @@
 			border: 1px solid black;
 			padding: 5px 10px 5px;
 	}
+
 	.legend i {
 	    width: 15px;
 	    height: 15px;
@@ -199,6 +201,7 @@ function format_leaflet_pt(d) {
 			.addTo(leafletMap)
 			.on('mouseover', mouseover)
 			.on('mouseout', mouseout);
+	return marker;
 }
 </script>
 </body>
