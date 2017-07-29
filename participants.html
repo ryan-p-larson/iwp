@@ -125,11 +125,11 @@ d3.csv('data/canonical/participant-data.csv', format_data, function(data) {
 	// Scale set up
 	color_year.domain(d3.set(data.map(function(d) { return d.year; })).values().sort(d3.ascending));
 
-	//////////////////////////////////////////////////////////////////////////////
 	var countries = d3.nest()
-			.key(function(d) { return d.country; })
+			//.key(function(d) { return d.country; })
+			.key(function(d) { return d.coord; })
 			.entries(data);
-
+	console.log(countries);
 	// Map each country array into Leaflet.js points
 	country_pts = countries.map(function(c) {
 		return c['values'].map(format_leaflet_pt);
@@ -139,15 +139,6 @@ d3.csv('data/canonical/participant-data.csv', format_data, function(data) {
 	country_pts.map(function(c, j) {
 		c.map(function(d, i) { format_popup(d, i, c, j); });
 	});
-
-
-
-
-
-	//////////////////////////////////////////////////////////////////////////////
-
-	// Map each point using leaflet
-	//var pts = data.map(format_leaflet_pt);
 
 	// Add zoom not in our legend's business
 	L.control.zoom({
@@ -162,7 +153,6 @@ d3.csv('data/canonical/participant-data.csv', format_data, function(data) {
 
 	});
 });
-
 
 
 // Functions
