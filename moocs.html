@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>MOOC Enrollment</title>
+
+	<!-- CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,500,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"/>
+
+	<!-- D3.js + TopoJson -->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+	<script src="https://d3js.org/topojson.v1.min.js"></script>
+
+	<!-- Leaflet for easier mapping -->
+	<script src="https://unpkg.com/leaflet@1.1.0"></script>
+	<!-- Esri Basemaps -->
+	<script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+
+	<!-- Styling -->
+  <style>
+	#mapDiv {
+		width: 960px;
+		height: 600px;
+	}
+	.mapTitle h2 {
+		color: #e9e9e9;
+		margin: 5px;
+		font-weight: 700;
+	}
+
+
+	.legend {
+	    line-height: 20px;
+	    color: #000;
+			background: rgba(118, 118, 118, 0.5);
+			border: 1px solid rgba(255, 255, 255, 0.25);
+			padding: 5px 10px 5px;
+	}
+	.legend h4 {
+		color: #e9e9e9;
+	}
+	.legend a {
+		color: #CCDAFF;
+		letter-spacing: .03em;
+		text-rendering: optimizelegibility !important;
+	}
+
+  </style>
+</head>
+
+<body>
+<div id="mapDiv"></div>
+
+<script type="text/javascript">
+
+// Create Leaflet map instance
+var leafletMap = L.map('mapDiv', {
+	attributionControl: false,
+	zoomControl: false
+}).setView([29, -3.5], 2);
+
+// Add tiles and use Esri's maps
+var esri_lite = L.esri.basemapLayer('DarkGray', {
+	minZoom: 2,
+	maxZoom: 7
+}).addTo(leafletMap);
+
+// Leaflet title
+var title = L.control({position: 'topleft'});
+title.onAdd = function(map) {
+	var div = L.DomUtil.create('div', 'mapTitle');
+	div.innerHTML += '<h2>MOOC Enrollment</h2>';
+	return div;
+}
+title.addTo(leafletMap);
+
+// Leaflet Legend
+var legend = L.control({position: 'topleft'});
+legend.onAdd = function(leafletMap) {
+
+	// Create legend div and gather categories first
+  var div = L.DomUtil.create('div', 'info legend');
+
+	// Add legend title
+	div.innerHTML += "<h4><strong>" + "Legend" + "</strong></h4>";
+
+  return div;
+}
+
+// D3.js setup
+L.svg().addTo(leafletMap);
+var svg = d3.select("#mapDiv").select("svg").attr("pointer-events", null);
+var g = svg.append("g");
+var color_program = d3.scaleOrdinal().range(['#7fc97f','#beaed4','#fdc086','#ffff99']);
+
+
+
+d3.queue()
+	.defer(d3.csv, 'data/canonical/mooc-metrics-population.csv', format_data)
+	.defer(d3.json, 'data/maps/countries-pop.geojson')
+	.awaitAll(setup_map);
+
+function setup_map(error, data) {
+
+	var classes = data[0],
+			countries = data[1];
+
+	var classes_by_country = d3.nest()
+			.key(function(d) { return d.iso; })
+			.object(classes);
+
+	/*classes_by_country.entries().map(function(d) {
+		d.sum_new_users = d3.sum(d.values, function(d) { return d.new_users; });
+		d.sum_uniq_pg_views = d3.sum(d.values, function(d) { return d.uniq_pg_views; });
+		d.sum_pg_views = d3.sum(d.values, function(d) { return d.pg_views; });
+		return d;
+	});*/
+
+	console.log(classes, countries, classes_by_country);
+
+	function style_feature(feature) {
+		var feat_id = feature.properties.iso;
+		var feat_classes = classes_by_country[feat_id]; console.log(feat_classes);
+
+	}
+	L.geoJson(countries, {style: style_feature}).addTo(leafletMap);
+};
+
+
+
+// Functions
+function format_data(d) {
+	var numeric_attrs = ['year', 'new_users', 'uniq_pg_views', 'pg_views', 'population', 'new_users_rate', 'uniq_pg_views_rate', 'pg_views_rate'];
+	numeric_attrs.forEach(function(attr) { d[attr] = +d[attr]; });
+
+	var lookup_page = {
+	  "poetry-and-plays-2017": 'Power of the Pen: Identities and Social Issues in Poetry and Plays',
+	  "fiction-and-nonfiction-2017": 'Power of the Pen: Identities and Social Issues in Fiction and Nonfiction',
+	  "how-writers-write-fiction-2016": 'How Writers Write Fiction 2016: Storied Women',
+	  "flash-write-2016": '#Flashwrite Teen Poetry',
+	  "how-writers-write-fiction-2015": 'How Writers Write Fiction 2015',
+	  "whitman-2016": 'Whitman’s Civil War: Writing and Imaging Death, Loss, and Disaster'
+	};
+	d.page = lookup_page[d.page];
+
+	return d;
+}
+
+function format_leaflet_pt(d) {
+
+	var pt = {
+		"type": "Feature",
+		"properties": {
+			"location": (d.city) ? d.city + ", " + d.country: d.country,
+			"year": d.year,
+			"category": d.category
+		},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [d.coord.lat, d.coord.lng]
+		}
+	};
+	var mouseover = function(e) {
+			var layer = e.target;
+	    layer.setStyle({weight: 3, fillOpacity: 1.0, radius: 11});
+	    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) layer.bringToFront();
+	};
+	var mouseout = function(e) {
+			var layer = e.target;
+	    layer.setStyle({color: '#e9e9e9', weight: 1, fillOpacity: 0.85, radius: 7});
+	};
+
+	var pt_opts = {
+		// Stroke
+		'color': '#e9e9e9',
+		'opacity': 0.85,
+		'weight': 1,
+		// Fill
+		'fillColor': color_program(d.category),
+		'fillOpacity': 0.85,
+		// Other
+		'radius': 7,
+		'className': 'outreach category-' + d.category.replace(' ', '_')
+	};
+
+	var popup_text = "<h4><strong>Program Information</strong></h4>" +
+			"<b>Location: </b>" + pt.properties.location + "<br>" +
+			"<b>Year: </b>" + pt.properties.year + "<br>" +
+			"<b>Category: </b>" + pt.properties.category + "<br>";
+
+	// Conditionally add link
+	if (d.hasOwnProperty("link"))
+			popup_text += "<b>Link: </b><a target='_blank' href='" + d.link + "'>Here.</a></b>";
+
+	var marker = new L.circleMarker(pt.geometry.coordinates, pt_opts)
+			.bindPopup(popup_text, {className: 'popup'})
+			.addTo(leafletMap)
+			.on('mouseover', mouseover)
+			.on('mouseout', mouseout);
+
+	return marker;
+}
+
+
+
+</script>
+</body>
