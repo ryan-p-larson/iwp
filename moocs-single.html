@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>MOOC Enrollment</title>
+
+	<!-- CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,500,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"/>
+
+	<!-- D3.js + TopoJson -->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+	<script src="https://d3js.org/topojson.v1.min.js"></script>
+
+	<!-- Leaflet for easier mapping -->
+	<script src="https://unpkg.com/leaflet@1.1.0"></script>
+	<!-- Esri Basemaps -->
+	<script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+
+	<!-- Styling -->
+  <style>
+	#mapDiv {
+		width: 960px;
+		height: 600px;
+	}
+	.mapTitle h2 {
+		color: #e9e9e9;
+		margin: 5px;
+		font-weight: 700;
+	}
+
+
+	.legend {
+	    line-height: 20px;
+	    color: #000;
+			background: rgba(118, 118, 118, 0.5);
+			border: 1px solid rgba(255, 255, 255, 0.25);
+			padding: 5px 10px 5px;
+	}
+	.legend h4 {
+		color: #e9e9e9;
+	}
+	.legend a {
+		color: #CCDAFF;
+		letter-spacing: .03em;
+		text-rendering: optimizelegibility !important;
+	}
+
+  </style>
+</head>
+
+<body>
+<div id="mapDiv"></div>
+
+<script type="text/javascript">
+
+function init_map() {
+	// Create Leaflet map instance
+	var map = L.map('mapDiv', {
+			attributionControl: false,
+			zoomControl: false})
+		.setView([29, -3.5], 2);
+	L.esri.basemapLayer('DarkGray', {
+			minZoom: 2,
+			maxZoom: 7})
+		.addTo(map);
+
+	return map;
+}
+
+
+// D3.js setup, using only for scales
+var color_scale = d3.scaleQuantize()
+		.range(["#edf8fb", "#b2e2e2", "#66c2a4", "#2ca25f", "#006d2c"]);
+var radius_scale = d3.scaleLinear().range([9, 35]);
+var lookup_page = {
+	"poetry-and-plays-2017": 'Power of the Pen: Identities and Social Issues in Poetry and Plays',
+	"fiction-and-nonfiction-2017": 'Power of the Pen: Identities and Social Issues in Fiction and Nonfiction',
+	"how-writers-write-fiction-2016": 'How Writers Write Fiction 2016: Storied Women',
+	"flash-write-2016": '#Flashwrite Teen Poetry',
+	"how-writers-write-fiction-2015": 'How Writers Write Fiction 2015',
+	"whitman-2016": 'Whitman’s Civil War: Writing and Imaging Death, Loss, and Disaster'
+};
+
+
+var leafletMap = init_map();
+var feature_layer;
+
+d3.json('data/canonical/country-classes.geojson', function(error, data) {
+
+	// Filter those without classes
+	data['features'] = data['features'].filter(d => d.properties.classes.length > 0);
+
+	// Add features to map
+	feature_layer = L.geoJson(data).addTo(leafletMap);
+
+});
+
+// Functions
+function set_scales(data, attr) {
+	// Get just our features
+	var features = data['features'].map(function(d) { return d.properties; });
+
+	// Gather our appropriate data
+	/*var datum_nested = features.map(function(d) {
+		return d.classes.map(function(c) {
+			return c[attr];
+		});
+	});
+	var datum_flattened = [].concat(...datum_nested);*/
+
+	/*var sum_by_country = features
+			.map(function(d) {
+				var total = d3.sum(d.classes.map(function(c) { return c[attr]; }));
+				return total;
+			});
+	*/
+
+	var sum_by_country = features.map(d => { return d[attr]; });
+
+
+	// Clustering classes
+	// to-deo
+
+	// Set scales
+	color_scale.domain(sum_by_country);
+	radius_scale.domain(d3.extent(sum_by_country));
+}
+
+function update_features(attr) {
+
+	function style(feature) {
+		return {
+			fillColor: color_scale(feature.properties[attr])
+		}
+	}
+	feature_layer.setStyle(style);
+}
+
+
+
+
+
+// Controls
+L.Control.FilterClass = L.Control.extend({
+	options: {position: 'topleft', placeholder: 'MOOC:'},
+	initialize: function (options /*{ data: {...}  }*/) {
+		// constructor
+		L.Util.setOptions(this, options);
+	},
+	onAdd: function (map) {
+		// Create neccesary HTML
+		var container = L.DomUtil.create('div', 'filter--class');
+		this.form = L.DomUtil.create('form', 'form', container);
+		var group = L.DomUtil.create('div', 'form-group', this.form);
+
+		// Label for select
+		var label = L.DomUtil.create('h6', 'filter--title', group);
+		label.innerText = this.options.placeholder;
+
+		// Add select tag
+		var select = L.DomUtil.create('select', 'form-control', group);
+		// Programatically add options from our classes
+		d3.entries(lookup_page).forEach(function(d) {
+			var option = L.DomUtil.create('option', 'small', select);
+			option.value = d.key;
+			option.text = d.value;
+		});
+
+		// Add listener
+		L.DomEvent.addListener(select, 'change', this.onChange, this);
+		L.DomEvent.disableClickPropagation(container);
+		return container;
+	},
+	onChange: function(e) {
+		L.DomEvent.preventDefault(e);
+    var elem = e.target;
+    var value = elem.value;
+
+		// DRAW UPDATE HERE
+	}
+});
+L.control.filterClass = function(id, options) {
+	return new L.Control.FilterClass(id, options);
+}
+var filter_class = L.control.filterClass('test-test').addTo(leafletMap);
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
