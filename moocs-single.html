@@ -5,18 +5,15 @@
 
 	<!-- CSS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Raleway:400,500,900" rel="stylesheet">
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"/>
+	<link href="src/nouislider.min.css" rel="stylesheet">
 
-	<!-- D3.js + TopoJson -->
+	<!-- Javascript -->
 	<script src="https://d3js.org/d3.v4.min.js"></script>
-	<script src="https://d3js.org/colorbrewer.v1.min.js"></script>
-	<script src="https://d3js.org/topojson.v1.min.js"></script>
-
-	<!-- Leaflet for easier mapping -->
+	<script src="src/nouislider.min.js"></script>
 	<script src="https://unpkg.com/leaflet@1.1.0"></script>
-	<!-- Esri Basemaps -->
 	<script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+	<script src="https://unpkg.com/simple-statistics@4.1.0/dist/simple-statistics.js"></script>
 
 	<!-- Styling -->
   <style>
@@ -30,7 +27,6 @@
 		font-weight: 700;
 	}
 
-
 	.legend {
 	    line-height: 20px;
 	    color: #000;
@@ -38,14 +34,16 @@
 			border: 1px solid rgba(255, 255, 255, 0.25);
 			padding: 5px 10px 5px;
 	}
-	.legend h4 {
-		color: #e9e9e9;
+
+	.filterBase {
+		width: 250px;
 	}
-	.legend a {
-		color: #CCDAFF;
-		letter-spacing: .03em;
-		text-rendering: optimizelegibility !important;
+	.filter--label {
+		font-weight: bold;
 	}
+
+
+
 
   </style>
 </head>
@@ -61,7 +59,7 @@ function init_map() {
 			attributionControl: false,
 			zoomControl: false})
 		.setView([29, -3.5], 2);
-	L.esri.basemapLayer('DarkGray', {
+	L.esri.basemapLayer('Gray', {
 			minZoom: 2,
 			maxZoom: 7})
 		.addTo(map);
@@ -71,10 +69,10 @@ function init_map() {
 
 
 // D3.js setup, using only for scales
-var color_scale = d3.scaleQuantize()
-		.range(["#edf8fb", "#b2e2e2", "#66c2a4", "#2ca25f", "#006d2c"]);
+var color_scale = d3.scaleThreshold().range(["#edf8fb", "#b2e2e2", "#66c2a4", "#2ca25f", "#006d2c"]);
 var radius_scale = d3.scaleLinear().range([9, 35]);
 var lookup_page = {
+	"all": "All Classes",
 	"poetry-and-plays-2017": 'Power of the Pen: Identities and Social Issues in Poetry and Plays',
 	"fiction-and-nonfiction-2017": 'Power of the Pen: Identities and Social Issues in Fiction and Nonfiction',
 	"how-writers-write-fiction-2016": 'How Writers Write Fiction 2016: Storied Women',
@@ -82,10 +80,13 @@ var lookup_page = {
 	"how-writers-write-fiction-2015": 'How Writers Write Fiction 2015',
 	"whitman-2016": 'Whitman’s Civil War: Writing and Imaging Death, Loss, and Disaster'
 };
+var lookup_metric = {
+	'new_users': 'New Users',
+	'uniq_pg_views': 'Unique Page Views',
+	'pg_views': 'Total Page Views'
+};
 
-
-var leafletMap = init_map();
-var feature_layer;
+var leafletMap = init_map(), feature_layer, slider;
 
 d3.json('data/canonical/country-classes.geojson', function(error, data) {
 
@@ -95,69 +96,103 @@ d3.json('data/canonical/country-classes.geojson', function(error, data) {
 	// Add features to map
 	feature_layer = L.geoJson(data).addTo(leafletMap);
 
+	// Instantiate the update
+	L.Control.FilterBase.prototype.onChange(this);
+
 });
 
 // Functions
-function set_scales(data, attr) {
-	// Get just our features
-	var features = data['features'].map(function(d) { return d.properties; });
-
-	// Gather our appropriate data
-	/*var datum_nested = features.map(function(d) {
-		return d.classes.map(function(c) {
-			return c[attr];
-		});
-	});
-	var datum_flattened = [].concat(...datum_nested);*/
-
-	/*var sum_by_country = features
-			.map(function(d) {
-				var total = d3.sum(d.classes.map(function(c) { return c[attr]; }));
-				return total;
+function get_country_metric(data, mooc, metric, yr_min, yr_max) {
+	var filtered = data
+			.filter((d) => { return (d.year >= yr_min) && (d.year <= yr_max); })
+			.filter((d) => {
+				if (mooc !== 'all') return d.page === mooc;
+				else return d;
 			});
-	*/
+	var metric_sum = d3.sum(filtered, (d) => { return d[metric]; });
 
-	var sum_by_country = features.map(d => { return d[attr]; });
+	return metric_sum;
+}
 
-
+function set_scales(values) {
 	// Clustering classes
-	// to-deo
+	var ck = ss.ckmeans(values, 5).map(function(cluster) {return cluster[0];});
+	console.log(ck);
 
 	// Set scales
-	color_scale.domain(sum_by_country);
-	radius_scale.domain(d3.extent(sum_by_country));
+	color_scale.domain(values);
+	radius_scale.domain(d3.extent(values));
 }
 
-function update_features(attr) {
+function update_map(mooc, metric, yr_min, yr_max) {
 
-	function style(feature) {
+	// Extract the features from our feature layer
+	var layer = feature_layer.getLayers();
+	var features = layer.map((d) => d.feature.properties);
+
+	// Calc the data for each country
+	var sums = features.map((d) => {
+		return get_country_metric(d.classes, mooc, metric, yr_min, yr_max);
+	});
+
+	// Set color scales
+	set_scales(sums);
+
+	function set_country_style(data) {
 		return {
-			fillColor: color_scale(feature.properties[attr])
+			// Stroke
+			'color': '#000',
+			'opacity': 0.3,
+			'weight': 1,
+			// Fill
+			'fillColor': color_scale(get_country_metric(data.properties.classes, mooc, metric, yr_min, yr_max))
+			//'fillOpacity': 0.75,
 		}
 	}
-	feature_layer.setStyle(style);
-}
 
+	feature_layer.setStyle(set_country_style);
+
+}
 
 
 
 
 // Controls
-L.Control.FilterClass = L.Control.extend({
-	options: {position: 'topleft', placeholder: 'MOOC:'},
-	initialize: function (options /*{ data: {...}  }*/) {
-		// constructor
+L.Control.FilterBase = L.Control.extend({
+	options: {position: 'topleft', label: 'Filter Label'},
+
+	initialize: function (options) {
 		L.Util.setOptions(this, options);
 	},
+
+	onChange: function(e) {
+		L.DomEvent.preventDefault(e);
+
+		// Filter Values
+		var mooc_val = d3.select('.filter--class select').node().value;
+		var metric = d3.select('.filter--metric select').node().value;
+
+		var years = slider.get();
+		var year_min = +years[0].slice(0, -3);
+		var year_max = +years[1].slice(0, -3);
+
+		// Ship them off the our update function!
+		update_map(mooc_val, metric, year_min, year_max);
+	}
+});
+
+// Classes
+var FilterClass = L.Control.FilterBase.extend({
+	options: {label: "MOOC: "},
 	onAdd: function (map) {
 		// Create neccesary HTML
-		var container = L.DomUtil.create('div', 'filter--class');
+		var container = L.DomUtil.create('div', 'filterBase filter--class');
 		this.form = L.DomUtil.create('form', 'form', container);
 		var group = L.DomUtil.create('div', 'form-group', this.form);
 
 		// Label for select
-		var label = L.DomUtil.create('h6', 'filter--title', group);
-		label.innerText = this.options.placeholder;
+		var label = L.DomUtil.create('h5', 'filter--label', group);
+		label.innerText = this.options.label;
 
 		// Add select tag
 		var select = L.DomUtil.create('select', 'form-control', group);
@@ -172,24 +207,74 @@ L.Control.FilterClass = L.Control.extend({
 		L.DomEvent.addListener(select, 'change', this.onChange, this);
 		L.DomEvent.disableClickPropagation(container);
 		return container;
-	},
-	onChange: function(e) {
-		L.DomEvent.preventDefault(e);
-    var elem = e.target;
-    var value = elem.value;
-
-		// DRAW UPDATE HERE
 	}
 });
-L.control.filterClass = function(id, options) {
-	return new L.Control.FilterClass(id, options);
-}
-var filter_class = L.control.filterClass('test-test').addTo(leafletMap);
+var test_class = new FilterClass().addTo(leafletMap);
 
+// Metrics
+var FilterMetric = L.Control.FilterBase.extend({
+	options: {label: "Metric: "},
+	onAdd: function (map) {
+		// Create neccesary HTML
+		var container = L.DomUtil.create('div', 'filterBase filter--metric');
+		this.form = L.DomUtil.create('form', 'form', container);
+		var group = L.DomUtil.create('div', 'form-group', this.form);
 
+		// Label for select
+		var label = L.DomUtil.create('h5', 'filter--label', group);
+		label.innerText = this.options.label;
 
+		// Add select tag
+		var select = L.DomUtil.create('select', 'form-control', group);
+		// Programatically add options from our metrics
+		d3.entries(lookup_metric).forEach(function(d) {
+			var option = L.DomUtil.create('option', 'small', select);
+			option.value = d.key;
+			option.text = d.value;
+		});
 
+		// Add listener
+		L.DomEvent.addListener(select, 'change', this.onChange, this);
+		L.DomEvent.disableClickPropagation(container);
+		return container;
+	}
+});
+var test_metric = new FilterMetric().addTo(leafletMap);
 
+// Years
+var FilterYear = L.Control.FilterBase.extend({
+	options: {label: "Year: "},
+	onAdd: function (map) {
+		// Create neccesary HTML
+		var container = L.DomUtil.create('div', 'filterBase filter--year');
+
+		// Label
+		var label = L.DomUtil.create('h5', 'filter--label', container);
+		label.innerText = this.options.label;
+
+		// Slider!
+		var sliderDiv = L.DomUtil.create('div', 'filter--slider', container);
+		slider = noUiSlider.create(sliderDiv, {
+			range: {'min': [2015], 'max': [2017]},
+			start: [2015, 2017],
+			pips: {
+				mode: 'values',
+				values: [2015, 2016, 2017],
+				density: 40
+			},
+			connect: true,
+			step: 1
+		});
+
+		// Add listener
+		slider.on('set', this.onChange);
+		// Prevent sliding from making the map move
+		L.DomEvent.disableClickPropagation(container);
+
+		return container;
+	}
+});
+var test_year = new FilterYear().addTo(leafletMap);
 
 
 
