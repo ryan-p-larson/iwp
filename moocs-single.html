@@ -36,7 +36,7 @@
 	}
 
 	.filterBase {
-		width: 250px;
+		width: 200px;
 	}
 	.filter--label {
 		font-weight: bold;
@@ -69,7 +69,7 @@ function init_map() {
 
 
 // D3.js setup, using only for scales
-var color_scale = d3.scaleThreshold().range(["#edf8fb", "#b2e2e2", "#66c2a4", "#2ca25f", "#006d2c"]);
+var color_scale = d3.scaleThreshold().range(['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c']);
 var radius_scale = d3.scaleLinear().range([9, 35]);
 var lookup_page = {
 	"all": "All Classes",
@@ -106,8 +106,8 @@ function get_country_metric(data, mooc, metric, yr_min, yr_max) {
 	var filtered = data
 			.filter((d) => { return (d.year >= yr_min) && (d.year <= yr_max); })
 			.filter((d) => {
-				if (mooc !== 'all') return d.page === mooc;
-				else return d;
+				if (mooc === 'all') return d;
+				else return d.page === mooc;
 			});
 	var metric_sum = d3.sum(filtered, (d) => { return d[metric]; });
 
@@ -120,8 +120,8 @@ function set_scales(values) {
 	console.log(ck);
 
 	// Set scales
-	color_scale.domain(values);
-	radius_scale.domain(d3.extent(values));
+	color_scale.domain(ck);
+	radius_scale.domain(d3.extent(ck));
 }
 
 function update_map(mooc, metric, yr_min, yr_max) {
