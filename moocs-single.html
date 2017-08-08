@@ -21,18 +21,21 @@
 		width: 960px;
 		height: 600px;
 	}
-	.mapTitle h2 {
-		color: #e9e9e9;
-		margin: 5px;
-		font-weight: 700;
-	}
 
 	.legend {
+		width: 150px;
 	    line-height: 20px;
 	    color: #000;
-			background: rgba(118, 118, 118, 0.5);
-			border: 1px solid rgba(255, 255, 255, 0.25);
-			padding: 5px 10px 5px;
+		background: rgba(118, 118, 118, 0.4);
+		border: 1px solid rgba(255, 255, 255, 0.25);
+		padding: 5px 10px 5px;
+	}
+	.legend i {
+		width: 18px;
+		height: 18px;
+		float: left;
+		margin-right: 8px;
+		opacity: 0.7;
 	}
 
 	.filterBase {
@@ -94,7 +97,13 @@ d3.json('data/canonical/country-classes.geojson', function(error, data) {
 	data['features'] = data['features'].filter(d => d.properties.classes.length > 0);
 
 	// Add features to map
-	feature_layer = L.geoJson(data).addTo(leafletMap);
+	//feature_layer = L.geoJson(data).addTo(leafletMap);
+	// map each feature to a circleMarker instead
+	console.log(data);
+	feature_layer = data.features.map((d) => {
+		console.log(d);
+		return L.circleMarker(d);
+	});
 
 	// Instantiate the update
 	L.Control.FilterBase.prototype.onChange(this);
@@ -128,15 +137,18 @@ function update_map(mooc, metric, yr_min, yr_max) {
 
 	// Extract the features from our feature layer
 	var layer = feature_layer.getLayers();
-	var features = layer.map((d) => d.feature.properties);
+	var features = layer.map((d) => d.feature);
 
 	// Calc the data for each country
 	var sums = features.map((d) => {
-		return get_country_metric(d.classes, mooc, metric, yr_min, yr_max);
+		return get_country_metric(d.properties.classes, mooc, metric, yr_min, yr_max);
 	});
 
 	// Set color scales
 	set_scales(sums);
+	
+	// Set legend 
+	legend.update(mooc, metric, yr_min, yr_max);
 
 	function set_country_style(data) {
 		return {
@@ -276,9 +288,23 @@ var FilterYear = L.Control.FilterBase.extend({
 });
 var test_year = new FilterYear().addTo(leafletMap);
 
-
-
-
+// Legend
+var legend = L.control({position: 'bottomleft'});	
+legend.onAdd = function(map) {
+		this._div = L.DomUtil.create('div', 'legend');
+		//this.update()
+		return this._div;
+	}
+legend.update = function(mooc_val, metric, year_min, year_max) {
+	var legend_html = "<h4>Legend</h4>";
+	var domain = color_scale.domain();
+	for (var i=0; i<domain.length; i++) {
+		legend_html += '<i style="background:' + color_scale(domain[i]) + '"></i> ' +
+			domain[i] + (domain[i + 1] ? '&ndash;' + domain[i + 1] + '<br>' : '+');
+	}
+	this._div.innerHTML = legend_html;
+};
+legend.addTo(leafletMap);
 
 
 
