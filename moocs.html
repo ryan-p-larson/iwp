@@ -73,7 +73,7 @@ function init_map() {
 var base_style = {
 	// Fill
 	fillColor: '#ccc',
-	fillOpacity: 0.5,
+	fillOpacity: 0.25,
 	// Stroke
 	weight: 1,
 	color: '#333',
@@ -83,7 +83,7 @@ var base_style = {
 
 // D3.js setup, using only for scales
 var color_scale = d3.scaleThreshold().range(['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c']);
-var radius_scale = d3.scaleLinear().range([9, 35]);
+var radius_scale = d3.scaleQuantile().range([7, 30]);
 var lookup_page = {
 	"all": "All Classes",
 	"poetry-and-plays-2017": 'Power of the Pen: Identities and Social Issues in Poetry and Plays',
@@ -111,14 +111,17 @@ d3.json('data/canonical/country-classes.geojson', function(error, data) {
 
 	// map each feature to a circleMarker instead
 	feature_layer = data['features'].map(format_leaflet_pt);
+
+	// Instantiate the update
+	L.Control.FilterBase.prototype.onChange(this);
 });
 
 // Functions
 function format_leaflet_pt(d) {
 
 	// Use turf to create points from polygons
-	//var pt = turf.centroid(d.geometry, d.properties);
-	var pt = turf.centerOfMass(d.geometry, d.properties);
+	var pt = turf.centroid(d.geometry, d.properties);
+	//var pt = turf.centerOfMass(d.geometry, d.properties);
 
 	// flip the coordinates
 	var temp_coord = [pt.geometry.coordinates[1], pt.geometry.coordinates[0]];
@@ -126,12 +129,12 @@ function format_leaflet_pt(d) {
 
 	var mouseover = function(e) {
 			var layer = e.target;
-	    layer.setStyle({weight: 3, fillOpacity: 1.0, radius: 11});
+	    layer.setStyle({weight: 2, fillOpacity: 0.8});
 	    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) layer.bringToFront();
 	};
 	var mouseout = function(e) {
 			var layer = e.target;
-	    layer.setStyle({color: base_style.color, weight: 1, fillOpacity: 0.85, radius: 7});
+	    layer.setStyle({color: base_style.color, weight: 1, fillOpacity: 0.5});
 	};
 
 	var pt_opts = {
@@ -140,7 +143,7 @@ function format_leaflet_pt(d) {
 		'opacity': 0.75,
 		'weight': 1,
 		// Fill
-		'fillOpacity': 0.85,
+		'fillOpacity': 0.5,
 		// Other
 		'radius': 7
 		//'className':
@@ -149,26 +152,243 @@ function format_leaflet_pt(d) {
 	// popup
 	var popup_text = "<h5><strong>Country Information</strong></h5>" +
 			"<b>Location: </b>" + pt.properties.country + "<br>";
-	/*
-	// Conditionally add link
+	/* // Conditionally add link
 	if (d.hasOwnProperty("link"))
 			popup_text += "<b>Link: </b><a target='_blank' href='" + d.link + "'>Here.</a></b>";
 	*/
 
+
+	/*
 	var marker = new L.circleMarker(pt.geometry.coordinates, pt_opts)
 			.bindPopup(popup_text, {className: 'popup'})
 			.addTo(leafletMap)
 			.on('mouseover', mouseover)
 			.on('mouseout', mouseout);
-
-	console.log(d, pt)
+	*/
+	var marker = L.geoJson(pt, {
+		pointToLayer: function(feature) {
+			return new L.circleMarker(feature.geometry.coordinates, pt_opts);
+		},
+		onEachFeature: function(feature, layer) {
+			layer.on({
+				mouseover: mouseover,
+				mouseout: mouseout
+			});
+		}
+	})
+		.bindPopup(popup_text)
+		.addTo(leafletMap);
 
 	return marker;
 }
 
+function get_country_metric(data, mooc, metric, yr_min, yr_max) {
+	var filtered = data
+			.filter((d) => { return (d.year >= yr_min) && (d.year <= yr_max); })
+			.filter((d) => {
+				if (mooc === 'all') return d;
+				else return d.page === mooc;
+			});
+	var metric_sum = d3.sum(filtered, (d) => { return d[metric]; });
 
+	return metric_sum;
+}
 
+function set_scales(values) {
+	// Clustering classes
+	var ck = ss.ckmeans(values, 5).map(function(cluster) {return cluster[0];});
 
+	// Set scales
+	color_scale.domain(ck);
+	//radius_scale.domain(values);
+	radius_scale.domain(ck);
+}
+
+function update_map(mooc, metric, yr_min, yr_max) {
+
+	// Extract the features from our feature layer
+	var features = feature_layer.map((d) => { return d.getLayers()[0]['feature']; });
+
+	// Calc the data for each country
+	var sums = feature_layer.map((d) => {
+		var feature_data = d.getLayers()[0]['feature'].properties.classes;
+		return get_country_metric(feature_data, mooc, metric, yr_min, yr_max);
+	});
+
+	// Set color scales
+	set_scales(sums);
+
+	// Set legend
+	legend.update(mooc, metric, yr_min, yr_max);
+
+	function set_country_style(data) {
+		var feature_data= data.getLayers()[0]['feature'].properties.classes;
+		var country_measure = get_country_metric(feature_data, mooc, metric, yr_min, yr_max);
+		var opac = (country_measure > 0) ? 0.75 : 0;
+		return {
+			// Stroke
+			'color': '#000',
+			'opacity': opac,
+			'weight': 1,
+			// Fill
+			'fillColor': color_scale(get_country_metric(feature_data, mooc, metric, yr_min, yr_max)),
+			'fillOpacity': opac,
+			// radius
+			'radius': radius_scale(get_country_metric(feature_data, mooc, metric, yr_min, yr_max))
+		}
+	};
+	function set_country_popup(data) {
+		var feature_props = data.getLayers()[0]['feature'].properties;
+		var feature_data = feature_props.classes;
+		var popup_text = "<h5><strong>Country Information</strong></h5>" +
+					"<b>Location: </b>" + feature_props.country + "<br>" +
+					"<b>" + lookup_metric[metric] + ":</b> " + get_country_metric(feature_data, mooc, metric, yr_min, yr_max);
+		return popup_text;
+	};
+
+	feature_layer.map((d) => {
+		d
+			.setStyle(set_country_style(d))
+			.bindPopup(set_country_popup(d));
+	});
+}
+
+// Controls
+L.Control.FilterBase = L.Control.extend({
+	options: {position: 'topleft', label: 'Filter Label'},
+
+	initialize: function (options) {
+		L.Util.setOptions(this, options);
+	},
+
+	onChange: function(e) {
+		L.DomEvent.preventDefault(e);
+
+		// Filter Values
+		var mooc_val = d3.select('.filter--class select').node().value;
+		var metric = d3.select('.filter--metric select').node().value;
+
+		var years = slider.get();
+		var year_min = +years[0].slice(0, -3);
+		var year_max = +years[1].slice(0, -3);
+
+		// Ship them off the our update function!
+		update_map(mooc_val, metric, year_min, year_max);
+	}
+});
+
+// Classes
+var FilterClass = L.Control.FilterBase.extend({
+	options: {label: "MOOC: "},
+	onAdd: function (map) {
+		// Create neccesary HTML
+		var container = L.DomUtil.create('div', 'filterBase filter--class');
+		this.form = L.DomUtil.create('form', 'form', container);
+		var group = L.DomUtil.create('div', 'form-group', this.form);
+
+		// Label for select
+		var label = L.DomUtil.create('h5', 'filter--label', group);
+		label.innerText = this.options.label;
+
+		// Add select tag
+		var select = L.DomUtil.create('select', 'form-control', group);
+		// Programatically add options from our classes
+		d3.entries(lookup_page).forEach(function(d) {
+			var option = L.DomUtil.create('option', 'small', select);
+			option.value = d.key;
+			option.text = d.value;
+		});
+
+		// Add listener
+		L.DomEvent.addListener(select, 'change', this.onChange, this);
+		L.DomEvent.disableClickPropagation(container);
+		return container;
+	}
+});
+var test_class = new FilterClass().addTo(leafletMap);
+
+// Metrics
+var FilterMetric = L.Control.FilterBase.extend({
+	options: {label: "Metric: "},
+	onAdd: function (map) {
+		// Create neccesary HTML
+		var container = L.DomUtil.create('div', 'filterBase filter--metric');
+		this.form = L.DomUtil.create('form', 'form', container);
+		var group = L.DomUtil.create('div', 'form-group', this.form);
+
+		// Label for select
+		var label = L.DomUtil.create('h5', 'filter--label', group);
+		label.innerText = this.options.label;
+
+		// Add select tag
+		var select = L.DomUtil.create('select', 'form-control', group);
+		// Programatically add options from our metrics
+		d3.entries(lookup_metric).forEach(function(d) {
+			var option = L.DomUtil.create('option', 'small', select);
+			option.value = d.key;
+			option.text = d.value;
+		});
+
+		// Add listener
+		L.DomEvent.addListener(select, 'change', this.onChange, this);
+		L.DomEvent.disableClickPropagation(container);
+		return container;
+	}
+});
+var test_metric = new FilterMetric().addTo(leafletMap);
+
+// Years
+var FilterYear = L.Control.FilterBase.extend({
+	options: {label: "Year: "},
+	onAdd: function (map) {
+		// Create neccesary HTML
+		var container = L.DomUtil.create('div', 'filterBase filter--year');
+
+		// Label
+		var label = L.DomUtil.create('h5', 'filter--label', container);
+		label.innerText = this.options.label;
+
+		// Slider!
+		var sliderDiv = L.DomUtil.create('div', 'filter--slider', container);
+		slider = noUiSlider.create(sliderDiv, {
+			range: {'min': [2015], 'max': [2017]},
+			start: [2015, 2017],
+			pips: {
+				mode: 'values',
+				values: [2015, 2016, 2017],
+				density: 40
+			},
+			connect: true,
+			step: 1
+		});
+
+		// Add listener
+		slider.on('set', this.onChange);
+		// Prevent sliding from making the map move
+		L.DomEvent.disableClickPropagation(container);
+
+		return container;
+	}
+});
+var test_year = new FilterYear().addTo(leafletMap);
+
+// Legend
+var legend = L.control({position: 'bottomleft'});
+legend.onAdd = function(map) {
+		this._div = L.DomUtil.create('div', 'legend');
+		//this.update()
+		return this._div;
+	}
+legend.update = function(mooc_val, metric, year_min, year_max) {
+	var legend_html = "<h4>Legend</h4>";
+	var domain = color_scale.domain();
+	for (var i=0; i<domain.length; i++) {
+		legend_html += '<i style="background:' + color_scale(domain[i]) + '"></i> ' +
+			domain[i] + (domain[i + 1] ? '&ndash;' + domain[i + 1] + '<br>' : '+');
+	}
+	this._div.innerHTML = legend_html;
+};
+legend.addTo(leafletMap);
 
 
 
