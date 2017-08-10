@@ -22,31 +22,50 @@
 		height: 600px;
 	}
 
+	.mapTitle.leaflet-control {
+		margin-left: 20px;
+	}
+	.mapTitle.leaflet-control,
+	.mapTitle h3 {
+		margin-top: 10px;
+	}
+
 	.legend {
 		width: 125px;
-	    line-height: 20px;
-	    color: #000;
+    line-height: 20px;
+    color: #000;
 		background: rgba(118, 118, 118, 0.4);
 		border: 1px solid rgba(255, 255, 255, 0.25);
 		padding: 5px 10px 5px;
 	}
 	.legend i {
-		width: 18px;
-		height: 18px;
-		border-radius: 9px;
 		float: left;
 		margin-right: 8px;
 		opacity: 0.75;
 	}
 
+	/* Bottom align filters and legend */
+	.filterBase.filter--year.leaflet-control,
+	.legend {
+		margin-bottom: 40px;
+	}
+
 	.filterBase.leaflet-control {
-		width: 200px;
-		margin-top: 0px;
+		width: 150px;
+		margin-bottom: 0px;
 		margin-left: 20px;
 	}
 	.filter--label {
 		font-weight: bold;
 		margin-bottom: 5px;
+	}
+	.filterBase .form-group {
+		margin-bottom: 5px;
+	}
+
+	hr {
+		margin: 5px;
+
 	}
 
 	.noUi-marker-horizontal.noUi-marker-large {
@@ -117,7 +136,12 @@
 	.noUi-value {
 		color: #000;
 	}
-
+	.noUi-target {
+		border-radius: 16px;
+	}
+	.noUi-pips {
+		padding-top: 5px;
+	}
   </style>
 </head>
 
@@ -152,8 +176,11 @@ var base_style = {
 
 // D3.js setup, using only for scales
 var format_legend = d3.format(".5f");
+
 var color_scale = d3.scaleThreshold().range(['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c']);
+var percentile_scale = d3.scaleQuantile().range(Array.from(Array(100),(val,index)=>index));
 var radius_scale = d3.scaleQuantile().range([5, 8, 12, 16, 21]);
+
 var lookup_page = {
 	"all": "All Classes",
 	"poetry-and-plays-2017": 'Power of the Pen: Identities and Social Issues in Poetry and Plays',
@@ -164,12 +191,12 @@ var lookup_page = {
 	"whitman-2016": 'Whitman’s Civil War: Writing and Imaging Death, Loss, and Disaster'
 };
 var lookup_metric = {
-	'new_users': 'New Users',
-	'new_users_rate': 'New Users Rate',
-	'uniq_pg_views': 'Unique Page Views',
-	'uniq_pg_views_rate': 'Unique Page Views Rate',
+	'new_users': 'New Users (# users creating an account)',
+	'new_users_rate': 'New Users Rate (adjusted by country population)',
+	'uniq_pg_views': 'Unique Page Views (# distinct page views)',
+	'uniq_pg_views_rate': 'Unique Page Views Rate (adj. by pop.)',
 	'pg_views': 'Total Page Views',
-	'pg_views_rate': 'Total Page Views Rate',
+	'pg_views_rate': 'Total Page Views Rate (adj. by pop.)',
 };
 var lookup_link = {
 	// All
@@ -267,13 +294,16 @@ function get_country_metric(data, mooc, metric, yr_min, yr_max) {
 }
 
 function set_scales(values) {
+	// remove the zeroes
+	var filt_values = values.filter((d) => { return d > 0; });
+
 	// Clustering classes
-	var ck = ss.ckmeans(values, 5).map(function(cluster) {return cluster[0];});
+	var ck = ss.ckmeans(filt_values, 5).map(function(cluster) {return cluster[0];});
 
 	// Set scales
 	color_scale.domain(ck);
-	//radius_scale.domain(values);
 	radius_scale.domain(ck);
+	percentile_scale.domain(filt_values);
 }
 
 function update_map(mooc, metric, yr_min, yr_max) {
@@ -312,14 +342,17 @@ function update_map(mooc, metric, yr_min, yr_max) {
 	function set_country_popup(data) {
 		var feature_props = data.getLayers()[0]['feature'].properties;
 		var feature_data = feature_props.classes;
+		var feature_measure = get_country_metric(feature_data, mooc, metric, yr_min, yr_max);
 
 		var popup_template = "<strong>{name} Information</strong><br/>" +
-				"There are <strong>{measure}</strong> {metric} for <i>{mooc}</i> between {start} and {end}.<br/>" +
-				"<br>" +
+				"There are <strong>{measure}</strong> {metric} for <i>{mooc}</i> between {start} and {end}." +
+				"This is the {percentile}th percentile for the current filters." +
+				"<hr>" +
 				"Click <a target='_blank' href='{linked}'><b>here</b></a> to go to the course's webpage.";
 		var popup_data = {
 			name: feature_props.name,
-			measure: get_country_metric(feature_data, mooc, metric, yr_min, yr_max),
+			measure: feature_measure,
+			percentile: percentile_scale(feature_measure),
 			metric: lookup_metric[metric].toLowerCase(),
 			mooc: lookup_page[mooc],
 			start: yr_min,
@@ -340,7 +373,7 @@ function update_map(mooc, metric, yr_min, yr_max) {
 
 // Controls
 L.Control.FilterBase = L.Control.extend({
-	options: {position: 'topleft', label: 'Filter Label'},
+	options: {position: 'bottomleft', label: 'Filter Label'},
 
 	initialize: function (options) {
 		L.Util.setOptions(this, options);
@@ -361,7 +394,6 @@ L.Control.FilterBase = L.Control.extend({
 		update_map(mooc_val, metric, year_min, year_max);
 	}
 });
-
 // Classes
 var FilterClass = L.Control.FilterBase.extend({
 	options: {label: "MOOC: "},
@@ -390,8 +422,6 @@ var FilterClass = L.Control.FilterBase.extend({
 		return container;
 	}
 });
-var filter_class = new FilterClass().addTo(leafletMap);
-
 // Metrics
 var FilterMetric = L.Control.FilterBase.extend({
 	options: {label: "Metric: "},
@@ -420,8 +450,6 @@ var FilterMetric = L.Control.FilterBase.extend({
 		return container;
 	}
 });
-var filter_metric = new FilterMetric().addTo(leafletMap);
-
 // Years
 var FilterYear = L.Control.FilterBase.extend({
 	options: {label: "Year: "},
@@ -455,34 +483,56 @@ var FilterYear = L.Control.FilterBase.extend({
 		return container;
 	}
 });
-var filter_year = new FilterYear().addTo(leafletMap);
-
 // Legend
-var legend = L.control({position: 'topright'});
-legend.onAdd = function(map) {
-		this._div = L.DomUtil.create('div', 'legend');
-		return this._div;
+var FilterLegend = L.Control.extend({
+	options: {position: 'bottomright', label: 'Filter Label'},
+	initialize: function (options) {
+		L.Util.setOptions(this, options);
+	},
+	onAdd: function(map) {
+			this._div = L.DomUtil.create('div', 'legend');
+			return this._div;
+	},
+	update:	 function(mooc_val, metric, year_min, year_max) {
+		var legend_html = "<h5 class='filter--label'>Legend</h5>";
+		var domain = color_scale.domain();
+
+		for (var i=0; i<domain.length; i++) {
+			var legend_val = (domain[i] % 1 === 0) ? domain[i]: format_legend(domain[i]);
+			var legend_next = (domain[i + 1] % 1 === 0) ? domain[i]: format_legend(domain[i]);
+			var legend_entry = "<i style='";
+
+			legend_entry += "background:" + color_scale(domain[i]) + ";";
+			legend_entry += "width:" +  radius_scale(domain[i]) + "px;";
+			legend_entry += "height:" +  radius_scale(domain[i]) + "px;";
+			legend_entry += "border-radius:" + (radius_scale(domain[i]) / 2) + "px;"
+			legend_entry += "'></i> " + legend_val + (domain[i + 1] ? '&ndash;' + legend_next + '<br>' : '+');
+
+			legend_html += legend_entry;
+		}
+		this._div.innerHTML = legend_html;
 	}
-legend.update = function(mooc_val, metric, year_min, year_max) {
-	var legend_html = "<h5 class='filter--label'>Legend</h5>";
-	var domain = color_scale.domain();
-
-	for (var i=0; i<domain.length; i++) {
-		var legend_val = (domain[i] % 1 === 0) ? domain[i]: format_legend(domain[i]);
-		var legend_next = (domain[i + 1] % 1 === 0) ? domain[i]: format_legend(domain[i]);
-		var legend_entry = "<i style='";
-
-		legend_entry += "background:" + color_scale(domain[i]) + ";";
-		legend_entry += "width:" +  radius_scale(domain[i]) + "px;";
-		legend_entry += "height:" +  radius_scale(domain[i]) + "px;";
-		legend_entry += "border-radius:" + (radius_scale(domain[i]) / 2) + "px;"
-		legend_entry += "'></i> " + legend_val + (domain[i + 1] ? '&ndash;' + legend_next + '<br>' : '+');
-
-		legend_html += legend_entry;
+});
+// Leaflet title
+var Title = L.Control.extend({
+	options: {position: 'topleft'},
+	initialize: function (options) {
+		L.Util.setOptions(this, options);
+	},
+	onAdd: function(map) {
+		var div = L.DomUtil.create('div', 'mapTitle');
+		div.innerHTML += '<h3>IWP MOOC Engagement</h3>';
+		return div;
 	}
-	this._div.innerHTML = legend_html;
-};
-legend.addTo(leafletMap);
+});
 
+
+
+
+var filter_year = new FilterYear().addTo(leafletMap);
+var filter_class = new FilterClass().addTo(leafletMap);
+var filter_metric = new FilterMetric().addTo(leafletMap);
+var legend = new FilterLegend().addTo(leafletMap);
+var title = new Title().addTo(leafletMap);
 </script>
 </body>
