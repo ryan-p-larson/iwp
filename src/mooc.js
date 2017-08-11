@@ -1,3 +1,8 @@
+/*
+	IWP MOOC Source
+*/
+
+// Variables
 var format_legend = d3.format(".5f");
 
 var color_scale = d3.scaleThreshold().range(['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c']);
@@ -38,7 +43,19 @@ var lookup_link = {
   'How Writers Write Poetry 2015':                                             '#'
 };
 
+var style_settings = {
+	stroke: '#000000',
+	normal: {
+		weight: 1,
+		fillOpacity: 0.7
+	},
+	highlight: {
+		weight: 2,
+		fillOpacity: 0.9
+	}
+};
 
+// Functions
 function init_map(color) {
 	/*
 	Function to create a basic map. Returns a Leaflet map instance
@@ -48,8 +65,8 @@ function init_map(color) {
 			attributionControl: false,
 			zoomControl: false})
 		.setView([29, -3.5], 2);
-	L.esri.basemapLayer(color, {minZoom: 2, maxZoom: 7})
-		.addTo(map);
+	L.esri.basemapLayer(color, {minZoom: 2, maxZoom: 7}).addTo(map);
+	
 	return map;
 }
 
@@ -63,28 +80,26 @@ function format_leaflet_pt(d) {
 
 	var mouseover = function(e) {
 			var layer = e.target;
-	    layer.setStyle({weight: 2, fillOpacity: 0.8});
+	    layer.setStyle({weight: style_settings.highlight.weight, fillOpacity: style_settings.highlight.fillOpacity});
 	    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) layer.bringToFront();
 	};
 	var mouseout = function(e) {
 			var layer = e.target;
-	    layer.setStyle({color: '#ffffff', weight: 1, fillOpacity: 0.5});
+	    layer.setStyle({weight: style_settings.normal.weight, fillOpacity: style_settings.normal.fillOpacity});
 			if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) layer.bringToBack();
 	};
 
+	// popup
 	var pt_opts = {
 		// Stroke
-		'color': '#333',
-		'opacity': 0.75,
-		'weight': 1,
+		'color': style_settings.stroke,
+		'opacity': style_settings.normal.fillOpacity,
+		'weight': style_settings.normal.weight,
 		// Fill
-		'fillOpacity': 0.5,
+		'fillOpacity': style_settings.normal.fillOpacity,
 		// Other
 		'radius': 7
-		//'className':
 	};
-
-	// popup
 	var popup_text = "<h5><strong>Country Information</strong></h5>" +
 			"<b>Location: </b>" + pt.properties.name + "<br>";
 
@@ -101,7 +116,6 @@ function format_leaflet_pt(d) {
 		})
 		.bindPopup(popup_text)
 		.addTo(leafletMap);
-
 	return marker;
 }
 
@@ -150,9 +164,9 @@ function update_map(mooc, metric, yr_min, yr_max) {
 		var opac = (country_measure > 0) ? 0.75 : 0;
 		return {
 			// Stroke
-			'color': '#fff',
+			'color': style_settings.stroke,
 			'opacity': opac,
-			'weight': 1,
+			'weight': style_settings.normal.weight,
 			// Fill
 			'fillColor': color_scale(get_country_metric(feature_data, mooc, metric, yr_min, yr_max)),
 			'fillOpacity': opac,
