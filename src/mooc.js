@@ -39,17 +39,17 @@ var lookup_link = {
 };
 
 
-function init_map() {
-	// Create Leaflet map instance
+function init_map(color) {
+	/*
+	Function to create a basic map. Returns a Leaflet map instance
+	Color -- 'Gray' or 'DarkGray'
+	*/
 	var map = L.map('mapDiv', {
 			attributionControl: false,
 			zoomControl: false})
 		.setView([29, -3.5], 2);
-	L.esri.basemapLayer('Gray', {
-			minZoom: 2,
-			maxZoom: 7})
+	L.esri.basemapLayer(color, {minZoom: 2, maxZoom: 7})
 		.addTo(map);
-
 	return map;
 }
 
@@ -68,7 +68,7 @@ function format_leaflet_pt(d) {
 	};
 	var mouseout = function(e) {
 			var layer = e.target;
-	    layer.setStyle({color: '#333333', weight: 1, fillOpacity: 0.5});
+	    layer.setStyle({color: '#ffffff', weight: 1, fillOpacity: 0.5});
 			if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) layer.bringToBack();
 	};
 
@@ -150,7 +150,7 @@ function update_map(mooc, metric, yr_min, yr_max) {
 		var opac = (country_measure > 0) ? 0.75 : 0;
 		return {
 			// Stroke
-			'color': '#333',
+			'color': '#fff',
 			'opacity': opac,
 			'weight': 1,
 			// Fill
@@ -254,6 +254,8 @@ var FilterMetric = L.Control.FilterBase.extend({
 
 		// Label for select
 		var label = L.DomUtil.create('h5', 'filter--label', group);
+		//label.innerHTML = this.options.label + "<button type='button' class='btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
+		  "<span class='glyphicon glyphicon-alert' aria-hidden='true'></span></button>";
 		label.innerText = this.options.label;
 
 		// Add select tag

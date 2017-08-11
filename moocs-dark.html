@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>MOOC Enrollment</title>
+
+	<!-- CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"/>
+	<link href="src/nouislider.min.css" rel="stylesheet">
+
+	<!-- Javascript -->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="src/nouislider.min.js"></script>
+	<script src="https://unpkg.com/leaflet@1.1.0"></script>
+	<script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+	<script src="https://unpkg.com/simple-statistics@4.1.0/dist/simple-statistics.js"></script>
+
+	<!-- Styling -->
+  <style>
+		/* Leaflet */
+		.leaflet-container path{
+		  transition: fill .25s;
+		}
+		/* Our Map */
+		#mapDiv {
+			width: 960px;
+			height: 600px;
+		}
+		/* Map Title */
+		.mapTitle.leaflet-control {
+			margin-left: 20px;
+		}
+		.mapTitle.leaflet-control,
+		.mapTitle h2 {
+			margin-top: 10px;
+			font-weight: 700;
+			color: #ffffff;
+		}
+		/* Map Legend */
+		.legend {
+			width: 125px;
+	    line-height: 18px;
+	    color: #ffffff;
+			background: rgba(0, 0, 0, 0.5);
+			border: 1px solid rgba(255, 255, 255, 0.25);
+			padding: 10px;
+			box-shadow: 0 0 15px rgba(0,0,0,0.2);
+		}
+		.legend i {
+			float: left;
+			margin-right: 8px;
+			opacity: 0.75;
+			border: 1px solid black;
+		}
+		.legend h5 {
+			margin-top: 0px;
+		}
+		/* Bottom align filters and legend */
+		.filterBase.filter--year.leaflet-control,
+		.legend {
+			margin-bottom: 40px;
+		}
+		/* All Filters */
+		.filterBase.leaflet-control {
+			width: 150px;
+			margin: 0px 20px 0px;
+		}
+		.filter--label {
+			font-weight: bold;
+			margin-bottom: 5px;
+			color: #ffffff;
+		}
+		.filterBase .form-control {
+			margin-bottom: 5px;
+			box-shadow: 0 0 15px rgba(0,0,0,0.2);
+		}
+		hr {
+			margin: 5px;
+
+		}
+		/* Custom slider CSS for NoUISlider.js */
+		.noUi-base {
+			box-shadow: 0 0 15px rgba(0,0,0,0.2);
+		}
+		/* ticks */
+		.noUi-marker-horizontal.noUi-marker-large {
+		  height: 5px;
+			background-color: #fff;
+			width: 1px;
+		}
+		/* tick marks */
+		.noUi-value {
+			color: #fff;
+		}
+		.noUi-background {
+		  height: 15px;
+		}
+		.noUi-background.noUi-vertical {
+		  height: 200px;
+		  width: 15px;
+		  margin: 0 auto 30px;
+		}
+		.noUi-base .noUi-connect {
+		  background-color: #9d9d9d;
+		}
+		.noUi-base .noUi-handle {
+		  background-color: #ffffff;
+			border-color: rgba(0, 0, 0, 0.5);
+			border-width: 1.25px;
+		  border-radius: 8px;
+		  box-shadow: none;
+		  color: #FFFFFF;
+		  display: table;
+		  font-size: 12px;
+		  height: 18px;
+		  left: 0;
+		  margin-left: -8px;
+		  margin-top: -1.25px;
+		  padding: 0;
+		  position: absolute;
+		  text-align: center;
+		  top: 0;
+		  width: 18px;
+		  z-index: 2;
+		}
+		.noUi-horizontal .noUi-base .noUi-handle {
+		  cursor: ew-resize;
+		}
+		.noUi-vertical .noUi-base .noUi-handle {
+		  cursor: ns-resize;
+		  margin-left: -1.5px;
+		}
+		.noUi-base .noUi-handle:hover {
+		  background-color: #f7f7f7;
+		}
+		.noUi-base .noUi-handle.noUi-active {
+		  background-color: #c4c4c4;
+		  z-index: 3;
+		}
+		.noUi-base .noUi-handle::before {
+		  background: transparent;
+		  content: attr(data-value);
+		  display: table-cell;
+		  font-size: 16px;
+		  font-weight: 100;
+		  position: static;
+		  width: 100%;
+		  vertical-align: middle;
+		  stroke: #000;
+		  stroke-opacity: .3;
+		}
+		.noUi-base .noUi-handle::after {
+		  display: none;
+		}
+		.noUi-target {
+			border-radius: 16px;
+		}
+		.noUi-pips {
+			padding-top: 5px;
+		}
+  </style>
+</head>
+<body>
+
+<div id="mapDiv"></div>
+
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>This is a small modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="src/mooc.js"></script>
+<script type="text/javascript">
+// set the color range for dark colors
+color_scale.range(['#edf8e9','#bae4b3','#74c476','#31a354','#006d2c']);
+
+// lobal variables
+var leafletMap = init_map('DarkGray'), 	// base map
+		feature_layer,											// stores the country marks
+		slider,															// stores year slider vals
+		legend;															// pointer for the legend div
+
+d3.json('data/canonical/capital-classes.geojson', function(error, data) {
+
+	// Add map user interfaces
+	new Title().addTo(leafletMap);				// map title
+	new FilterYear().addTo(leafletMap);		// Year slider
+	new FilterMetric().addTo(leafletMap);	// Metric, which attr to calc
+	new FilterClass().addTo(leafletMap);	// Class, which to grab the attr from
+
+	// Add the legend after all of the filters have been added, reqs filter HTML
+	legend = new FilterLegend().addTo(leafletMap);
+
+	// map each GeoJSON feature to a circle
+	feature_layer = data['features'].map(format_leaflet_pt);
+
+	// Run the update to adjust the map
+	L.Control.FilterBase.prototype.onChange(this);
+});
+</script>
+</body>
