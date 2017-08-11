@@ -181,8 +181,8 @@ function update_map(mooc, metric, yr_min, yr_max) {
 		var feature_measure = get_country_metric(feature_data, mooc, metric, yr_min, yr_max);
 
 		// Helper functions to reduce typing and keep it clean
-		function span_left(d) { return "<span class='pull-left'><strong>"+ d + "</strong></span>"; };
-		function span_right(d) { return "<span class='pull-right'>{"+ d + "}</span><br>"; };
+		function span_left(d) { return "<div><span class='pull-left'><strong>"+ d + "</strong></span>"; };
+		function span_right(d) { return "<span class='pull-right'>{"+ d + "}</span></div><br>"; };
 
 		var popup = "<strong style='padding-bottom:5px;'><u>Country Information</u></strong><br>" +
 								span_left("Location") + span_right("name") +
