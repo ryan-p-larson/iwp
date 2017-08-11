@@ -66,7 +66,7 @@ function init_map(color) {
 			zoomControl: false})
 		.setView([29, -3.5], 2);
 	L.esri.basemapLayer(color, {minZoom: 2, maxZoom: 7}).addTo(map);
-	
+
 	return map;
 }
 
@@ -161,7 +161,7 @@ function update_map(mooc, metric, yr_min, yr_max) {
 	function set_country_style(data) {
 		var feature_data= data.getLayers()[0]['feature'].properties.classes;
 		var country_measure = get_country_metric(feature_data, mooc, metric, yr_min, yr_max);
-		var opac = (country_measure > 0) ? 0.75 : 0;
+		var opac = (country_measure > 0) ? style_settings.normal.fillOpacity : 0;
 		return {
 			// Stroke
 			'color': style_settings.stroke,
@@ -175,27 +175,36 @@ function update_map(mooc, metric, yr_min, yr_max) {
 		}
 	};
 	function set_country_popup(data) {
+		// Gather, extract data
 		var feature_props = data.getLayers()[0]['feature'].properties;
 		var feature_data = feature_props.classes;
 		var feature_measure = get_country_metric(feature_data, mooc, metric, yr_min, yr_max);
 
-		var popup_template = "<strong>{name} Information</strong><br/>" +
-				"There are <strong>{measure}</strong> {metric} for <i>{mooc}</i> between {start} and {end}." +
-				"This is the {percentile}th percentile for the current filters." +
-				"<hr>" +
-				"Click <a target='_blank' href='{linked}'><b>here</b></a> to go to the course's webpage.";
+		// Helper functions to reduce typing and keep it clean
+		function span_left(d) { return "<span class='pull-left'><strong>"+ d + "</strong></span>"; };
+		function span_right(d) { return "<span class='pull-right'>{"+ d + "}</span><br>"; };
+
+		var popup = "<strong style='padding-bottom:5px;'><u>Country Information</u></strong><br>" +
+								span_left("Location") + span_right("name") +
+		            span_left("Course") + span_right("mooc") +
+		            span_left("Metric") + span_right("metric") +
+		            span_left("Measure") + span_right("measure") +
+		            span_left("Percentile") + span_right("percentile") +
+								span_left("Time") + span_right("time") +
+								"<br>" +
+		            "<a target='_blank' href='{linked}'><b>Course website.</b></a>";
 		var popup_data = {
 			name: feature_props.name,
 			measure: feature_measure,
 			percentile: percentile_scale(feature_measure),
-			metric: lookup_metric[metric].toLowerCase(),
+			metric: lookup_metric[metric].replace(/ *\([^)]*\) */g, " ").trim(),
 			mooc: lookup_page[mooc],
 			start: yr_min,
 			end: yr_max,
+			time: "" + yr_min + " - " + yr_max + "",
 			linked: lookup_link[lookup_page[mooc]]
 		};
-
-		var popup_content = L.Util.template(popup_template, popup_data);
+		var popup_content = L.Util.template(popup, popup_data);
 		return popup_content;
 	};
 
@@ -269,7 +278,7 @@ var FilterMetric = L.Control.FilterBase.extend({
 		// Label for select
 		var label = L.DomUtil.create('h5', 'filter--label', group);
 		//label.innerHTML = this.options.label + "<button type='button' class='btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
-		  "<span class='glyphicon glyphicon-alert' aria-hidden='true'></span></button>";
+		// "<span class='glyphicon glyphicon-alert' aria-hidden='true'></span></button>";
 		label.innerText = this.options.label;
 
 		// Add select tag
@@ -278,7 +287,7 @@ var FilterMetric = L.Control.FilterBase.extend({
 		d3.entries(lookup_metric).forEach(function(d) {
 			var option = L.DomUtil.create('option', 'small', select);
 			option.value = d.key;
-			option.text = d.value;
+			option.text = d.value; 			// remove (...)
 		});
 
 		// Add listener
