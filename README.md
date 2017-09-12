@@ -75,15 +75,26 @@ The user can select a program to inspect it's details. For programs that have oc
 **MOOC Map:**
 <img src="src/instructions/mooc-map-overview.png"></img>
 
-**Methodology.**
+**Methodology.** Stub.
 
-
-Like the Outreach Programs map, the
+**Data Attribute Handbook.** See the file data headers above.
 
 
 ### Updating Maps
 
 1. Log in to [Github](https://www.github.com/login) under the account that owns the IWP Repository.
+<img src="src/instructions/github-01.png">
+
+2. From your homepage or using the direct URL, navigate to the `iwp` repository homepage.
+<img src="src/instructions/github-02.png">
+
+3. Enter the `data/canonical/` folder in the Github directory to access the map data files.
+<img src="src/instructions/github-03.png">
+
+4. *Important!* These are the only two files you will update. These two files are responsible for the data displayed on the webmaps.
+<img src="src/instructions/github-04.png">
+
+
 
 
 
