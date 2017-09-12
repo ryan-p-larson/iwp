@@ -14,6 +14,7 @@ See the live maps ***[here!](https://ryan-p-larson.github.io/iwp)***
 - Updating Maps Guide
 
 <hr>
+
 ### Files
 
 There's a lot of files in this repository, some are more important than others. This documentation will serve as a guide while updating the web maps in the future.
@@ -42,6 +43,7 @@ There's a lot of files in this repository, some are more important than others. 
 ```
 
 <br>
+
 **<a name="MDP"></a>Map - File Dependencies.** Each map renders from a specific data file, each map's dependencies are shown in the table below.
 
 | Map | File | File Description |
@@ -53,6 +55,7 @@ There's a lot of files in this repository, some are more important than others. 
 | MOOC Map | `data/canonical/capital-classes.geojson` | Formatted file from Google Analytics, containing the # of new users, total page views, and unique page views for each of the six IWP MOOC's. |
 
 <br>
+
 ##### Data File Headers
 
 The following tables will describe the map data attributes. This is to be used as a reference for updating and developing the web maps.
@@ -78,6 +81,7 @@ year,status,city,country,first_name,last_name,lat,long
 
 
 <hr>
+
 ### Maps Functionality
 
 **Outreach Programs Map:**
@@ -109,6 +113,7 @@ The user can select a program to inspect it's details. For programs that have oc
 **Data Attribute Handbook.** See the file data headers above.
 
 <hr>
+
 ### Updating Maps
 
 1. Log in to [Github](https://www.github.com/login) under the account that owns the IWP Repository.
@@ -126,8 +131,8 @@ The user can select a program to inspect it's details. For programs that have oc
 5. Click a file to see it individually, click the edit icon from this view to edit a file.
 <img src="src/instructions/github-05.png">
 
-6. *Important!* How you order and input the updated data is critical!
-  - Each row is one 'record'
+6. *Important!* How you order and input the updated data is critical! *Add your rows to the bottom*
+  - Each row is one 'record', separated by commas, and ending with a new line carriage return (enter)
   - The attributes must be put in the order of the columns
   - There can be no skipped columns, if the attribute is blank include a comma for it's column: `Name,,Last Name`.
   - Fields with commas contained in them must be escaped by double quoting the characters: `"New York, NY"`.
@@ -136,26 +141,3 @@ The user can select a program to inspect it's details. For programs that have oc
 
 7. Each batch of changes is wrapped up in a 'commit'. Enter in the summary of your changes and any other notes. This will be helpful if you want to see your changes over time. Enter your details into the editor's commit and submit your changes. You're done!
 <img src="src/instructions/github-07.png">
-
-
-
-
-
-
-
-
-# TO-DO
-
-- Table out the attributes for the map data
-
-- Mooc map
-  - google analytics explanation
-  - metrics explanation
-
-- update maps
-  - explain (only outreach + youth can be updated)
-  - process (after transferring to github)
-    1. Login into Github
-    2. navigate to correct file (include quick map dependency)
-    3. Edit the files (include the absolutely critical caveats: "", lat/lng)
-    4. git commit
