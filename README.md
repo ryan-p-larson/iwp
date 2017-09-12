@@ -1,17 +1,18 @@
 # International Writers Program Mapping Project
 
-See the live maps [***here!***](https://ryan-p-larson.github.io/iwp) 
+See the live maps ***[here!](https://ryan-p-larson.github.io/iwp)***
 
 
 ### Table of Contents
-1. Files
+- Files
   - [File Directory](#FDT)
   - [Map Dependencies](#MDP)
-2. [Map Functionality](#MF)
+  - Data File Headers
+- [Maps & Functionality](#MF)
   - Outreach Programs Map
   - Youth Participants Map
   - MOOC Map
-3. Updating Maps
+- Updating Maps Guide
 
 
 ### Files
@@ -74,14 +75,23 @@ The user can select a program to inspect it's details. For programs that have oc
 **MOOC Map:**
 <img src="src/instructions/mooc-map-overview.png"></img>
 
+**Methodology.**
+
+
+Like the Outreach Programs map, the
+
+
+### Updating Maps
+
+1. Log in to [Github](https://www.github.com/login) under the account that owns the IWP Repository.
+
+
 
 
 
 
 
 # TO-DO
-- list all of the functions for each map
-- gifs for important Functions
 
 - Table out the attributes for the map data
 
