@@ -6,7 +6,7 @@ See the live maps ***[here!](https://ryan-p-larson.github.io/iwp)***
 - Files
   - [File Directory](#FDT)
   - [Map Dependencies](#MDP)
-  - Data File Headers
+  - [Data File Headers](#data-file-headers)
 - [Maps & Functionality](#MF)
   - Outreach Programs Map
   - Youth Participants Map
@@ -56,7 +56,9 @@ There's a lot of files in this repository, some are more important than others. 
 
 <br>
 
-##### Data File Headers
+#### Data File Headers
+
+<a name="data-file-headers"></a>
 
 The following tables will describe the map data attributes. This is to be used as a reference for updating and developing the web maps.
 
@@ -76,7 +78,7 @@ The following tables will describe the map data attributes. This is to be used a
 
 | Attribute | Description | Type |
 |---|---|---|
-| `year` | Year program took place in. | Int: `2008-2017` |
+| `year` | Year program participant took place in. | Int: `2008-2017` |
 | `status` | Role the participant took. | String: `Student`, `Chaperone` |
 | `city` | City the participant identifies with as their home. | String: `New York` |
 | `country` | Country the participant identifies with as their home. | String: `United States of America`, `...` |
@@ -85,24 +87,26 @@ The following tables will describe the map data attributes. This is to be used a
 | `lat` | Latitude of city, country. | Float: `40.1791857` |
 | `long` | Longitude of city, country. | Float: `40.44.4991029`|
 
-**Mooc Map Metrics:** `data/canonical/capital-classes.geojson`
+**Mooc Map Metrics:** `data/canonical/capital-classes.geojson`. It's important to note the rate attributes; they have been included because population is a confounding factor. Seeing the rate attrbiutes reveal some interesting insights, like how Central America and the Caribbean have relatively high enrollment rates for their country as opposed to the rest of the world.
 
+| Attribute | Description | Type |
+|---|---|---|
+| `year` | Year MOOC took place in. | Int: `2008-2017` |
+| `country` | Country MOOC metrics were collected in (defined by Google IP). Displayed as ISO Alpha-2 code | String: `"AE"` |
+| `page` | MOOC course the metrics are for. | String: `poetry-and-plays-2017` |
+| `new_users` | The number of new users from *X* country, engaging with *Y* page. | Int: `1000` |
+| `new_users_rate` | Number of new users / country population. A population adjusted metric; shows relative rate of enrollment. | Float: `0.0000345` |
+| `pg_views` | Total number of times page was viewed, includes duplicates from users and sessions. | Int: `12000` |
+| `pg_views_rate` | Total page views / country population, shows relative engagement of page. | Float: `0.00856` |
+| `uniq_pg_views` | Number of *unique* page views (one per user) | Int: `6000` |
+| `uniq_pg_views_rate` | `uniq_pg_views` / country population. Shows a page's relative popularity. | Float: `0.0004251` |
 
-```
-"year": 2017,
-"country": "AE",
-"page": "poetry-and-plays-2017",
-"new_users": 94,
-"uniq_pg_views": 191,
-"pg_views": 324,
-"new_users_rate": 1.958949177981161e-05,
-"uniq_pg_views_rate": 3.980418010578742e-05,
-"pg_views_rate": 6.752122698573364e-05
-```
 
 <hr>
 
 ### Maps Functionality
+
+<a name="MF"></a>
 
 **Outreach Programs Map:**
 <img src="src/instructions/outreach-map-overview.png"></img>
