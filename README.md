@@ -164,9 +164,9 @@ The user can select a program to inspect it's details. For programs that have oc
   - Each row is one 'record', separated by commas, and ending with a new line carriage return (enter)
   - The attributes must be put in the order of the columns
   - Do *not* include spaces after column commas
-  - There can be no skipped columns, if the attribute is blank include a comma for it's column: `Name,,Last Name`.
-  - Fields with commas contained in them must be escaped by double quoting the characters: `"New York, NY"`.
-  - **E.G.** `Reading tour,Saudi Arabia,2008,https://www.uiowa.edu/...,Riyadh`
+  - There can be no skipped columns, if the attribute is blank include a comma for it's column: e.g. `Name,,Last Name`.
+  - Fields with commas contained in them must be escaped by double quoting the characters: `...,"New York, NY",...`.
+  - **Example entry** `Reading tour,Saudi Arabia,2008,https://www.uiowa.edu/...,Riyadh`
 <img src="src/instructions/github-06.png">
 
 7. Each batch of changes is wrapped up in a 'commit'. Enter in the summary of your changes and any other notes. This will be helpful if you want to see your changes over time. Enter your details into the editor's commit and submit your changes. You're done!
