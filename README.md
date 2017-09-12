@@ -11,7 +11,7 @@ See the live maps ***[here!](https://ryan-p-larson.github.io/iwp)***
   - Outreach Programs Map
   - Youth Participants Map
   - MOOC Map
-- Updating Maps Guide
+- [Updating Maps Guide](#update)
 
 <hr>
 
@@ -64,21 +64,41 @@ The following tables will describe the map data attributes. This is to be used a
 
 | Attribute | Description | Type |
 |---|---|---|
-| Category | Type of program, dependent on the context in which the program's work was done. | String: `Reading Tour`, `International Tour`, `Silk Routes`, `Distance Learning` |
-| Country | Country the program took place in. For countries that don't exist, use the latest nationally recognized boundaries. | String: `United States of America`, `...` |
-| Year | Year program took place in. | Int: `2008-2017` |
-| Link | HTML URL containing the programs information. | String: `https://iwp.uiowa.edu/programs/reading-abroad/...` |
-| City | City program took place in. | String: `New York` |
-| lat | Latitude of city, country. | Float: `40.1791857` |
-| lng | Longitude of city, country. | Float: `40.44.4991029`|
+| `category` | Type of program, dependent on the context in which the program's work was done. | String: `Reading Tour`, `International Tour`, `Silk Routes`, `Distance Learning` |
+| `country` | Country the program took place in. For countries that don't exist, use the latest nationally recognized boundaries. | String: `United States of America`, `...` |
+| `year` | Year program took place in. | Int: `2008-2017` |
+| `link` | HTML URL containing the programs information. | String: `https://iwp.uiowa.edu/programs/reading-abroad/...` |
+| `city` | City program took place in. | String: `New York` |
+| `lat` | Latitude of city, country. | Float: `40.1791857` |
+| `lng` | Longitude of city, country. | Float: `40.44.4991029`|
 
 **Youth Participants Data:** `data/canonical/participant-data.csv`
 
 | Attribute | Description | Type |
 |---|---|---|
-| Year |
-year,status,city,country,first_name,last_name,lat,long
+| `year` | Year program took place in. | Int: `2008-2017` |
+| `status` | Role the participant took. | String: `Student`, `Chaperone` |
+| `city` | City the participant identifies with as their home. | String: `New York` |
+| `country` | Country the participant identifies with as their home. | String: `United States of America`, `...` |
+| `first_name` | Participant first name. | String: `Johnny` |
+| `last_name` | Participant last name. | String: `Appleseed` |
+| `lat` | Latitude of city, country. | Float: `40.1791857` |
+| `long` | Longitude of city, country. | Float: `40.44.4991029`|
 
+**Mooc Map Metrics:** `data/canonical/capital-classes.geojson`
+
+
+```
+"year": 2017,
+"country": "AE",
+"page": "poetry-and-plays-2017",
+"new_users": 94,
+"uniq_pg_views": 191,
+"pg_views": 324,
+"new_users_rate": 1.958949177981161e-05,
+"uniq_pg_views_rate": 3.980418010578742e-05,
+"pg_views_rate": 6.752122698573364e-05
+```
 
 <hr>
 
@@ -110,11 +130,13 @@ The user can select a program to inspect it's details. For programs that have oc
 5. Select the following attributes to display in your sheet: `page-title, country, date(year), total_page_views, unique_page_views, new_users`
 6. Groupby the year column, and sum the three numeric attributes `total_page_views, unique_page_views, new_users`.
 
-**Data Attribute Handbook.** See the file data headers above.
+**Data Attribute Handbook.** See the file data headers above. For raw metrics without any population data, you can see the data file [here](data/canonical/mooc-metrics.csv).
 
 <hr>
 
 ### Updating Maps
+
+<a name="update"></a>
 
 1. Log in to [Github](https://www.github.com/login) under the account that owns the IWP Repository.
 <img src="src/instructions/github-01.png">
