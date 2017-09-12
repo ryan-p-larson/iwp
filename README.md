@@ -136,6 +136,9 @@ The user can select a program to inspect it's details. For programs that have oc
 
 **Data Attribute Handbook.** See the file data headers above. For raw metrics without any population data, you can see the data file [here](data/canonical/mooc-metrics.csv).
 
+**Filtering.** The MOOC Map has a more involved set of filters, which can be used in any combination to filter the underlying data. There are three filters; classes, metric, and date. The first two, classes and metric, are dropdown menus. The date filter is a slider with a minimum and maximum (they can be equal for 1 year). See the following for an example.
+<img src="src/instructions/mooc-filter-demo.gif"></img>
+
 <hr>
 
 ### Updating Maps
@@ -160,9 +163,10 @@ The user can select a program to inspect it's details. For programs that have oc
 6. *Important!* How you order and input the updated data is critical! *Add your rows to the bottom*
   - Each row is one 'record', separated by commas, and ending with a new line carriage return (enter)
   - The attributes must be put in the order of the columns
+  - Do *not* include spaces after column commas
   - There can be no skipped columns, if the attribute is blank include a comma for it's column: `Name,,Last Name`.
   - Fields with commas contained in them must be escaped by double quoting the characters: `"New York, NY"`.
-  - **E.G.** `Reading tour, Saudi Arabia, 2008, https://www.uiowa.edu/..., Riyadh`
+  - **E.G.** `Reading tour,Saudi Arabia,2008,https://www.uiowa.edu/...,Riyadh`
 <img src="src/instructions/github-06.png">
 
 7. Each batch of changes is wrapped up in a 'commit'. Enter in the summary of your changes and any other notes. This will be helpful if you want to see your changes over time. Enter your details into the editor's commit and submit your changes. You're done!
